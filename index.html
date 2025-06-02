@@ -332,7 +332,7 @@
         /* Rule File Grid */
         .rules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 16px;
             margin: 16px 0;
         }
@@ -344,17 +344,38 @@
             padding: 16px;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
         }
 
         .rules-card:hover {
             border-color: var(--text-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .rules-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
         }
 
         .rules-card-title {
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 8px;
             font-size: 14px;
+        }
+
+        .copy-icon {
+            color: var(--text-secondary);
+            font-size: 14px;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+
+        .rules-card:hover .copy-icon {
+            opacity: 1;
+            color: var(--text-accent);
         }
 
         .rules-card-desc {
@@ -368,7 +389,31 @@
             line-height: 1.4;
             color: var(--text-secondary);
             overflow: hidden;
-            max-height: 80px;
+            max-height: 100px;
+        }
+
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-success);
+            border: 1px solid var(--text-success);
+            color: var(--text-success);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
         }
 
         /* Skeptic Section */
@@ -402,6 +447,36 @@
             margin-bottom: 16px;
         }
 
+        /* Category tabs for rules */
+        .rules-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-primary);
+        }
+
+        .category-tab {
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: var(--text-accent);
+            color: var(--bg-primary);
+            border-color: var(--text-accent);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -415,6 +490,10 @@
             .rules-grid {
                 grid-template-columns: 1fr;
             }
+
+            .rules-categories {
+                justify-content: center;
+            }
         }
 
         /* Utility Classes */
@@ -424,6 +503,7 @@
         .text-muted { color: var(--text-secondary); }
         .mb-24 { margin-bottom: 24px; }
         .mt-24 { margin-top: 24px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -443,6 +523,12 @@
             </div>
         </div>
     </header>
+
+    <!-- Copy notification -->
+    <div id="copyNotification" class="copy-notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Copied to clipboard!</span>
+    </div>
 
     <main>
         <div class="container">
@@ -820,11 +906,25 @@ Focus on identifying where data could become stale or inconsistent.</pre>
                         <div class="setup-step">
                             <div class="setup-step-title">Configure Project Rules (.cursorrules)</div>
                             <div class="setup-step-content">
-                                <p>Choose the appropriate .cursorrules files for your project. Create these in your project root:</p>
+                                <p style="margin-bottom: 16px;">Create a <code>.cursorrules</code> file in your project root with rules specific to your technology stack. Click any card to copy its contents - you can combine multiple rules.</p>
                                 
-                                <div class="rules-grid">
-                                    <div class="rules-card" onclick="copyToClipboard('generic-rules')">
-                                        <div class="rules-card-title">Generic (All Projects)</div>
+                                <!-- Category Filter -->
+                                <div class="rules-categories">
+                                    <div class="category-tab active" data-category="all">All</div>
+                                    <div class="category-tab" data-category="languages">Languages</div>
+                                    <div class="category-tab" data-category="frameworks">Frameworks</div>
+                                    <div class="category-tab" data-category="practices">Best Practices</div>
+                                    <div class="category-tab" data-category="enterprise">Enterprise</div>
+                                    <div class="category-tab" data-category="data">Data & Analytics</div>
+                                </div>
+                                
+                                <div class="rules-grid" id="rulesGrid">
+                                    <!-- Generic/Universal -->
+                                    <div class="rules-card" data-category="practices" onclick="copyToClipboard('generic-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Generic (All Projects)</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
                                         <div class="rules-card-desc">Universal coding standards and best practices</div>
                                         <pre id="generic-rules"># Universal Coding Standards
 - Write clean, readable, maintainable code
@@ -833,77 +933,323 @@ Focus on identifying where data could become stale or inconsistent.</pre>
 - Generate tests for all new functionality
 - Follow security best practices
 - Use descriptive variable and function names
-- Optimize for performance where critical</pre>
+- Optimize for performance where critical
+- Follow SOLID principles and design patterns</pre>
                                     </div>
 
-                                    <div class="rules-card" onclick="copyToClipboard('typescript-rules')">
-                                        <div class="rules-card-title">TypeScript/JavaScript</div>
+                                    <!-- JavaScript/TypeScript -->
+                                    <div class="rules-card" data-category="languages" onclick="copyToClipboard('typescript-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">TypeScript/JavaScript</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
                                         <div class="rules-card-desc">Modern JS/TS patterns and conventions</div>
                                         <pre id="typescript-rules"># TypeScript/JavaScript Standards
 - Use TypeScript with strict mode enabled
-- Prefer const over let, avoid var
+- Prefer const over let, avoid var entirely
 - Use async/await over Promise chains
-- Include proper type definitions
-- Use functional programming patterns
-- Implement proper error boundaries
-- Follow ESLint/Prettier configurations</pre>
+- Include proper type definitions for all functions
+- Use functional programming patterns where appropriate
+- Implement proper error boundaries and error handling
+- Follow ESLint/Prettier configurations
+- Use proper module imports and exports
+- Include JSDoc comments for public APIs</pre>
                                     </div>
 
-                                    <div class="rules-card" onclick="copyToClipboard('react-rules')">
-                                        <div class="rules-card-title">React</div>
+                                    <!-- React -->
+                                    <div class="rules-card" data-category="frameworks" onclick="copyToClipboard('react-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">React</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
                                         <div class="rules-card-desc">Modern React patterns with hooks</div>
                                         <pre id="react-rules"># React Development Standards
-- Use functional components with hooks
+- Use functional components with hooks exclusively
 - Implement proper useEffect dependency arrays
-- Use custom hooks for complex logic
-- Include PropTypes or TypeScript interfaces
-- Follow component composition patterns
-- Implement proper error boundaries
-- Use React.memo for performance optimization</pre>
+- Use custom hooks for complex shared logic
+- Include PropTypes or TypeScript interfaces for all props
+- Follow component composition over inheritance
+- Implement proper error boundaries for error handling
+- Use React.memo for performance optimization when needed
+- Follow hooks rules and best practices
+- Use context sparingly, prefer prop drilling for simple cases</pre>
                                     </div>
 
-                                    <div class="rules-card" onclick="copyToClipboard('python-rules')">
-                                        <div class="rules-card-title">Python</div>
+                                    <!-- Angular -->
+                                    <div class="rules-card" data-category="frameworks" onclick="copyToClipboard('angular-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Angular</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Angular best practices and conventions</div>
+                                        <pre id="angular-rules"># Angular Development Standards
+- Follow Angular style guide and naming conventions
+- Use standalone components for new features
+- Implement OnPush change detection strategy when possible
+- Use reactive forms over template-driven forms
+- Follow lazy loading for feature modules
+- Implement proper error handling with ErrorHandler
+- Use Angular CLI for consistent project structure
+- Follow dependency injection patterns
+- Use observables and RxJS operators effectively
+- Implement proper lifecycle hooks (OnInit, OnDestroy)
+- Use Angular Material or other design systems consistently</pre>
+                                    </div>
+
+                                    <!-- Java -->
+                                    <div class="rules-card" data-category="languages" onclick="copyToClipboard('java-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Java</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Java best practices and modern patterns</div>
+                                        <pre id="java-rules"># Java Development Standards
+- Use Java 17+ features and modern syntax
+- Follow Google Java Style Guide
+- Use immutable objects where possible (records, final fields)
+- Implement proper exception handling with custom exceptions
+- Use Optional to handle null values
+- Follow SOLID principles and design patterns
+- Use streams and lambda expressions for data processing
+- Implement proper logging with SLF4J
+- Use builder pattern for complex object construction
+- Include comprehensive JavaDoc for public APIs
+- Use var for local variables when type is obvious
+- Follow naming conventions: camelCase for variables/methods, PascalCase for classes</pre>
+                                    </div>
+
+                                    <!-- Spring -->
+                                    <div class="rules-card" data-category="frameworks" onclick="copyToClipboard('spring-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Spring Boot</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Spring Boot enterprise patterns</div>
+                                        <pre id="spring-rules"># Spring Boot Development Standards
+- Use Spring Boot 3.x with latest stable version
+- Follow layered architecture: Controller -> Service -> Repository
+- Use constructor injection over field injection
+- Implement proper validation with Bean Validation (JSR-303)
+- Use @RestController for REST APIs, @Controller for MVC
+- Implement proper exception handling with @ControllerAdvice
+- Use Spring Data JPA with proper repository patterns
+- Configure proper logging with Logback
+- Use profiles for environment-specific configurations
+- Implement proper security with Spring Security
+- Use @Transactional appropriately with proper propagation
+- Follow RESTful API design principles
+- Use OpenAPI/Swagger for API documentation</pre>
+                                    </div>
+
+                                    <!-- Python -->
+                                    <div class="rules-card" data-category="languages" onclick="copyToClipboard('python-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Python</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
                                         <div class="rules-card-desc">Python best practices and conventions</div>
                                         <pre id="python-rules"># Python Development Standards
-- Follow PEP 8 style guidelines
-- Use type hints for function signatures
-- Include comprehensive docstrings
-- Implement proper exception handling
-- Use virtual environments for dependencies
+- Follow PEP 8 style guidelines strictly
+- Use type hints for function signatures and class attributes
+- Include comprehensive docstrings (Google or NumPy style)
+- Implement proper exception handling with specific exceptions
+- Use virtual environments (venv, poetry, conda) for dependencies
 - Follow pytest conventions for testing
-- Use dataclasses for data structures</pre>
+- Use dataclasses or pydantic for data structures
+- Use f-strings for string formatting
+- Follow single responsibility principle for functions and classes
+- Use context managers for resource management
+- Prefer list/dict comprehensions over loops when readable
+- Use logging instead of print statements</pre>
                                     </div>
 
-                                    <div class="rules-card" onclick="copyToClipboard('testing-rules')">
-                                        <div class="rules-card-title">Testing Focus</div>
+                                    <!-- Testing -->
+                                    <div class="rules-card" data-category="practices" onclick="copyToClipboard('testing-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Testing Focus</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
                                         <div class="rules-card-desc">Comprehensive testing strategies</div>
                                         <pre id="testing-rules"># Testing Standards
 - Achieve >90% code coverage for new code
 - Include unit, integration, and e2e tests
-- Test edge cases and error conditions
-- Use meaningful test descriptions
+- Test edge cases and error conditions thoroughly
+- Use meaningful test descriptions (Given-When-Then format)
 - Mock external dependencies properly
 - Include performance tests for critical paths
-- Generate test data factories/fixtures</pre>
+- Generate test data factories/fixtures
+- Follow AAA pattern: Arrange, Act, Assert
+- Use parameterized tests for multiple input scenarios
+- Implement proper test cleanup and isolation
+- Include security and accessibility tests where applicable</pre>
                                     </div>
 
-                                    <div class="rules-card" onclick="copyToClipboard('legacy-rules')">
-                                        <div class="rules-card-title">Legacy Refactoring</div>
+                                    <!-- Security -->
+                                    <div class="rules-card" data-category="practices" onclick="copyToClipboard('security-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Security</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Security best practices and standards</div>
+                                        <pre id="security-rules"># Security Standards
+- Never commit secrets, API keys, or credentials to version control
+- Use environment variables for configuration
+- Implement proper input validation and sanitization
+- Use parameterized queries to prevent SQL injection
+- Implement proper authentication and authorization
+- Use HTTPS for all external communications
+- Follow OWASP Top 10 security practices
+- Implement proper session management
+- Use Content Security Policy (CSP) headers
+- Implement rate limiting and throttling
+- Log security events and authentication attempts
+- Use secure coding practices for password handling
+- Implement proper CORS configuration
+- Validate and sanitize all user inputs</pre>
+                                    </div>
+
+                                    <!-- Code Quality -->
+                                    <div class="rules-card" data-category="practices" onclick="copyToClipboard('codequality-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Code Quality</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Code quality standards and metrics</div>
+                                        <pre id="codequality-rules"># Code Quality Standards
+- Maintain cyclomatic complexity below 10 per function
+- Follow DRY principle - avoid code duplication
+- Use meaningful variable and function names
+- Keep functions small and focused (single responsibility)
+- Implement proper code documentation and comments
+- Use static analysis tools (ESLint, SonarQube, etc.)
+- Follow consistent formatting and style guides
+- Implement proper dependency management
+- Use design patterns appropriately
+- Refactor code regularly to reduce technical debt
+- Implement proper logging and monitoring
+- Use version control best practices with meaningful commit messages
+- Follow code review guidelines and checklist</pre>
+                                    </div>
+
+                                    <!-- CI/CD -->
+                                    <div class="rules-card" data-category="practices" onclick="copyToClipboard('cicd-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">CI/CD</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Continuous integration and deployment practices</div>
+                                        <pre id="cicd-rules"># CI/CD Standards
+- Implement automated testing in all pipelines
+- Use infrastructure as code (Terraform, CloudFormation)
+- Implement proper environment promotion (dev -> staging -> prod)
+- Use feature flags for gradual rollouts
+- Implement proper rollback strategies
+- Use container orchestration (Docker, Kubernetes)
+- Implement proper secrets management in pipelines
+- Use blue-green or canary deployment strategies
+- Implement proper monitoring and alerting
+- Use automated security scanning in pipelines
+- Implement proper backup and disaster recovery
+- Use GitOps practices for deployment
+- Implement proper change management and approval processes</pre>
+                                    </div>
+
+                                    <!-- Legacy Refactoring -->
+                                    <div class="rules-card" data-category="practices" onclick="copyToClipboard('legacy-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Legacy Refactoring</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
                                         <div class="rules-card-desc">Safe refactoring of existing code</div>
                                         <pre id="legacy-rules"># Legacy Refactoring Standards
-- Maintain backward compatibility
-- Add tests before refactoring
+- Maintain backward compatibility during transitions
+- Add comprehensive tests before refactoring
 - Refactor in small, reviewable chunks
-- Document breaking changes clearly
-- Preserve existing behavior exactly
-- Add deprecation warnings for old APIs
-- Create migration guides for major changes</pre>
+- Document breaking changes clearly with migration guides
+- Preserve existing behavior exactly during refactoring
+- Add deprecation warnings for old APIs with timeline
+- Create migration guides for major changes
+- Use strangler fig pattern for large refactoring
+- Implement feature toggles for gradual migration
+- Monitor performance impact during refactoring
+- Communicate changes to all stakeholders</pre>
+                                    </div>
+
+                                    <!-- Oracle -->
+                                    <div class="rules-card" data-category="data" onclick="copyToClipboard('oracle-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Oracle Database</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Oracle database best practices</div>
+                                        <pre id="oracle-rules"># Oracle Database Standards
+- Use bind variables to prevent SQL injection
+- Implement proper indexing strategies for performance
+- Use PL/SQL for complex business logic in database
+- Follow Oracle naming conventions for objects
+- Implement proper transaction management with COMMIT/ROLLBACK
+- Use partitioning for large tables when appropriate
+- Implement proper backup and recovery strategies
+- Use Oracle optimizer hints judiciously
+- Follow proper connection pool management
+- Implement proper error handling with EXCEPTION blocks
+- Use materialized views for performance optimization
+- Follow proper security practices with roles and privileges
+- Monitor database performance with AWR reports
+- Use Oracle features like sequences for primary keys</pre>
+                                    </div>
+
+                                    <!-- Snowflake -->
+                                    <div class="rules-card" data-category="data" onclick="copyToClipboard('snowflake-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">Snowflake</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Snowflake data warehouse best practices</div>
+                                        <pre id="snowflake-rules"># Snowflake Development Standards
+- Use appropriate warehouse sizes for workload requirements
+- Implement proper data clustering for large tables
+- Use Snowflake's semi-structured data features for JSON/XML
+- Follow proper role-based access control (RBAC)
+- Use streams and tasks for data pipeline automation
+- Implement proper data sharing strategies
+- Use zero-copy cloning for development/testing
+- Optimize queries using Snowflake's query profiler
+- Implement proper cost monitoring and optimization
+- Use Snowflake's caching features effectively
+- Follow proper data loading practices with COPY INTO
+- Use Snowflake's time travel features for data recovery
+- Implement proper data governance and lineage tracking</pre>
+                                    </div>
+
+                                    <!-- SDLC -->
+                                    <div class="rules-card" data-category="enterprise" onclick="copyToClipboard('sdlc-rules')">
+                                        <div class="rules-card-header">
+                                            <div class="rules-card-title">SDLC</div>
+                                            <i class="fas fa-copy copy-icon"></i>
+                                        </div>
+                                        <div class="rules-card-desc">Software Development Lifecycle practices</div>
+                                        <pre id="sdlc-rules"># SDLC Standards
+- Follow Agile/Scrum methodologies with proper ceremonies
+- Implement proper requirements gathering and documentation
+- Use user stories with acceptance criteria
+- Follow proper estimation techniques (story points, planning poker)
+- Implement proper code review processes
+- Use proper branching strategies (GitFlow, GitHub Flow)
+- Implement proper release management processes
+- Follow proper change management procedures
+- Implement proper risk management and mitigation
+- Use proper project tracking and reporting tools
+- Follow proper stakeholder communication practices
+- Implement proper quality assurance processes
+- Use proper documentation standards throughout lifecycle
+- Follow proper post-release support and maintenance</pre>
                                     </div>
                                 </div>
                                 
                                 <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
-                                    <strong>Tip:</strong> Click any rule card to copy its contents. Combine multiple rules in your .cursorrules file.
+                                    <strong>Tip:</strong> Click any rule card to copy its contents. Combine multiple rules in your .cursorrules file. 
+                                    The copy notification will appear in the top-right corner.
                                 </p>
                             </div>
                         </div>
@@ -981,20 +1327,92 @@ Focus on identifying where data could become stale or inconsistent.</pre>
     </main>
 
     <script>
-        // Copy to clipboard functionality
+        // Copy to clipboard functionality with improved feedback
         function copyToClipboard(elementId) {
             const element = document.getElementById(elementId);
             const text = element.textContent;
             navigator.clipboard.writeText(text).then(() => {
-                // Visual feedback
+                // Show notification
+                showCopyNotification();
+                
+                // Visual feedback on card
                 const card = element.closest('.rules-card');
                 const originalBorder = card.style.borderColor;
                 card.style.borderColor = 'var(--text-success)';
+                card.style.transform = 'translateY(-2px) scale(1.02)';
+                
                 setTimeout(() => {
                     card.style.borderColor = originalBorder;
+                    card.style.transform = '';
                 }, 500);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(text);
             });
         }
+
+        // Show copy notification
+        function showCopyNotification() {
+            const notification = document.getElementById('copyNotification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+
+        // Fallback copy function for older browsers
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.top = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopyNotification();
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        // Category filtering functionality
+        function filterRulesByCategory(category) {
+            const cards = document.querySelectorAll('.rules-card');
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            // Update active tab
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.category === category) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Filter cards
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add event listeners for category tabs
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterRulesByCategory(tab.dataset.category);
+            });
+        });
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1034,6 +1452,12 @@ Focus on identifying where data could become stale or inconsistent.</pre>
         }
 
         window.addEventListener('scroll', updateActiveNav);
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show all cards initially
+            filterRulesByCategory('all');
+        });
     </script>
 </body>
 </html>
