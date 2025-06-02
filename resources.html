@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources - AI Agentic IDE Guide</title>
+    <title>Cursor Resources - AI Agentic IDE Guide</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -289,22 +289,45 @@
             color: var(--text-secondary);
         }
 
-        /* Code Blocks */
-        .code-block {
-            background: var(--bg-tertiary);
+        /* Setup Steps */
+        .setup-steps {
+            background: var(--bg-secondary);
             border: 1px solid var(--border-primary);
-            border-radius: 6px;
-            padding: 16px;
-            margin: 16px 0;
-            overflow-x: auto;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
         }
 
-        .code-block pre {
-            margin: 0;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.5;
+        .setup-step {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .setup-step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .setup-step-title {
+            font-size: 18px;
+            font-weight: 600;
             color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .setup-step-content {
+            color: var(--text-secondary);
+        }
+
+        .setup-step-content ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .setup-step-content li {
+            margin: 6px 0;
         }
 
         /* Learning Path */
@@ -386,11 +409,11 @@
                 </div>
                 <nav>
                     <ul class="nav-links">
-                        <li><a href="index.html">Overview</a></li>
+                        <li><a href="index.html#overview">Overview</a></li>
                         <li><a href="index.html#workflows">Workflows</a></li>
-                        <li><a href="index.html#tools">Tools</a></li>
                         <li><a href="index.html#patterns">Patterns</a></li>
-                        <li><a href="resources.html" class="active">Resources</a></li>
+                        <li><a href="index.html#examples">Examples</a></li>
+                        <li><a href="resources.html" class="active">Cursor Resources</a></li>
                     </ul>
                 </nav>
             </div>
@@ -400,9 +423,9 @@
     <main>
         <div class="container">
             <section class="page-header">
-                <h1 class="page-title">IDE Resources & Documentation</h1>
+                <h1 class="page-title">Cursor Resources & Documentation</h1>
                 <p class="page-description">
-                    Comprehensive resources, documentation, and learning materials for AI-powered IDEs. 
+                    Comprehensive resources, documentation, and learning materials for Cursor and other AI-powered IDEs. 
                     Includes video tutorials, official documentation, and community resources.
                 </p>
             </section>
@@ -498,30 +521,54 @@
                         <h3 class="card-title">Quick Setup Guide</h3>
                     </div>
                     <div class="card-content">
-                        <div class="code-block">
-                            <pre><strong>1. Enable Documentation Indexing</strong>
-• Go to Cursor Settings → Features → Documentation
-• Add your project's documentation directories
-• Include external API documentation URLs
-• Wait for indexing to complete (shows in status bar)
+                        <div class="setup-steps">
+                            <div class="setup-step">
+                                <div class="setup-step-title">1. Enable Documentation Indexing</div>
+                                <div class="setup-step-content">
+                                    <ul>
+                                        <li>Go to Cursor Settings → Features → Documentation</li>
+                                        <li>Add your project's documentation directories</li>
+                                        <li>Include external API documentation URLs</li>
+                                        <li>Wait for indexing to complete (shows in status bar)</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-<strong>2. Create Custom Modes</strong>
-• Open Command Palette (Ctrl/Cmd + Shift + P)
-• Type "Create Custom Mode"
-• Define mode-specific prompts and behaviors
-• Save and assign keyboard shortcuts
+                            <div class="setup-step">
+                                <div class="setup-step-title">2. Create Custom Modes</div>
+                                <div class="setup-step-content">
+                                    <ul>
+                                        <li>Open Command Palette (Ctrl/Cmd + Shift + P)</li>
+                                        <li>Type "Create Custom Mode"</li>
+                                        <li>Define mode-specific prompts and behaviors</li>
+                                        <li>Save and assign keyboard shortcuts</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-<strong>3. Generate Rules Automatically</strong>
-• Right-click in project root
-• Select "Generate .cursorrules from project"
-• Review and customize generated rules
-• Commit rules file to version control
+                            <div class="setup-step">
+                                <div class="setup-step-title">3. Generate Rules Automatically</div>
+                                <div class="setup-step-content">
+                                    <ul>
+                                        <li>Right-click in project root</li>
+                                        <li>Select "Generate .cursorrules from project"</li>
+                                        <li>Review and customize generated rules</li>
+                                        <li>Commit rules file to version control</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-<strong>4. Enable Mermaid Generation</strong>
-• Install Mermaid extension if not included
-• Use Command Palette → "Generate Mermaid from Code"
-• Select diagram type (flowchart, sequence, etc.)
-• Insert generated diagrams into documentation</pre>
+                            <div class="setup-step">
+                                <div class="setup-step-title">4. Enable Mermaid Generation</div>
+                                <div class="setup-step-content">
+                                    <ul>
+                                        <li>Install Mermaid extension if not included</li>
+                                        <li>Use Command Palette → "Generate Mermaid from Code"</li>
+                                        <li>Select diagram type (flowchart, sequence, etc.)</li>
+                                        <li>Insert generated diagrams into documentation</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
