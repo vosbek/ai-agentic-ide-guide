@@ -329,6 +329,48 @@
             margin: 6px 0;
         }
 
+        /* Rule File Grid */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .rules-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rules-card:hover {
+            border-color: var(--text-accent);
+        }
+
+        .rules-card-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .rules-card-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .rules-card pre {
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+            overflow: hidden;
+            max-height: 80px;
+        }
+
         /* Skeptic Section */
         .skeptic-section {
             background: var(--bg-warning);
@@ -367,6 +409,10 @@
             }
             
             .workflow-content {
+                grid-template-columns: 1fr;
+            }
+
+            .rules-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -754,49 +800,111 @@ Focus on identifying where data could become stale or inconsistent.</pre>
             </section>
 
             <section id="setup" class="section">
-                <h2 class="section-title">Get Productive in 30 Minutes</h2>
+                <h2 class="section-title">Get Productive in 20 Minutes</h2>
                 
                 <div class="setup-guide">
                     <div class="setup-steps">
                         <div class="setup-step">
-                            <div class="setup-step-title">Install and Configure Cursor</div>
-                            <div class="setup-step-content">
-                                <ul>
-                                    <li>Download Cursor from <a href="https://cursor.sh" style="color: var(--text-accent);">cursor.sh</a></li>
-                                    <li>Sign in with GitHub/Google (enables cloud features)</li>
-                                    <li>Install in Applications folder (macOS) or Program Files (Windows)</li>
-                                    <li>Import your existing VS Code extensions and settings if desired</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="setup-step">
-                            <div class="setup-step-title">Open Your Largest, Most Complex Repository</div>
+                            <div class="setup-step-title">Open Your Most Complex Repository</div>
                             <div class="setup-step-content">
                                 <ul>
                                     <li>Clone your most challenging repo locally</li>
                                     <li>Open the entire folder in Cursor (not individual files)</li>
-                                    <li>Let Cursor index the codebase (shows progress in status bar)</li>
-                                    <li>Wait for indexing to complete before starting prompts</li>
+                                    <li><strong>Wait for Cursor to index the codebase</strong> - this is critical for context awareness</li>
+                                    <li>The indexing progress shows in the status bar - don't start prompting until complete</li>
+                                    <li>Larger repos (100k+ lines) may take 2-5 minutes to fully index</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="setup-step">
-                            <div class="setup-step-title">Create a .cursorrules File</div>
+                            <div class="setup-step-title">Configure Project Rules (.cursorrules)</div>
                             <div class="setup-step-content">
-                                <p>Create a .cursorrules file in your project root to establish coding standards:</p>
-                                <div class="code-block">
-                                    <pre># Project Coding Standards
-- Use TypeScript with strict mode
-- Follow existing patterns in /src/
-- Generate comprehensive tests for all new code
-- Include error handling and input validation
-- Use our logging format from utils/logger
-- Follow our API response patterns
-- Include JSDoc comments for complex functions
-- Use functional components with hooks (React projects)</pre>
+                                <p>Choose the appropriate .cursorrules files for your project. Create these in your project root:</p>
+                                
+                                <div class="rules-grid">
+                                    <div class="rules-card" onclick="copyToClipboard('generic-rules')">
+                                        <div class="rules-card-title">Generic (All Projects)</div>
+                                        <div class="rules-card-desc">Universal coding standards and best practices</div>
+                                        <pre id="generic-rules"># Universal Coding Standards
+- Write clean, readable, maintainable code
+- Include comprehensive error handling
+- Add meaningful comments for complex logic
+- Generate tests for all new functionality
+- Follow security best practices
+- Use descriptive variable and function names
+- Optimize for performance where critical</pre>
+                                    </div>
+
+                                    <div class="rules-card" onclick="copyToClipboard('typescript-rules')">
+                                        <div class="rules-card-title">TypeScript/JavaScript</div>
+                                        <div class="rules-card-desc">Modern JS/TS patterns and conventions</div>
+                                        <pre id="typescript-rules"># TypeScript/JavaScript Standards
+- Use TypeScript with strict mode enabled
+- Prefer const over let, avoid var
+- Use async/await over Promise chains
+- Include proper type definitions
+- Use functional programming patterns
+- Implement proper error boundaries
+- Follow ESLint/Prettier configurations</pre>
+                                    </div>
+
+                                    <div class="rules-card" onclick="copyToClipboard('react-rules')">
+                                        <div class="rules-card-title">React</div>
+                                        <div class="rules-card-desc">Modern React patterns with hooks</div>
+                                        <pre id="react-rules"># React Development Standards
+- Use functional components with hooks
+- Implement proper useEffect dependency arrays
+- Use custom hooks for complex logic
+- Include PropTypes or TypeScript interfaces
+- Follow component composition patterns
+- Implement proper error boundaries
+- Use React.memo for performance optimization</pre>
+                                    </div>
+
+                                    <div class="rules-card" onclick="copyToClipboard('python-rules')">
+                                        <div class="rules-card-title">Python</div>
+                                        <div class="rules-card-desc">Python best practices and conventions</div>
+                                        <pre id="python-rules"># Python Development Standards
+- Follow PEP 8 style guidelines
+- Use type hints for function signatures
+- Include comprehensive docstrings
+- Implement proper exception handling
+- Use virtual environments for dependencies
+- Follow pytest conventions for testing
+- Use dataclasses for data structures</pre>
+                                    </div>
+
+                                    <div class="rules-card" onclick="copyToClipboard('testing-rules')">
+                                        <div class="rules-card-title">Testing Focus</div>
+                                        <div class="rules-card-desc">Comprehensive testing strategies</div>
+                                        <pre id="testing-rules"># Testing Standards
+- Achieve >90% code coverage for new code
+- Include unit, integration, and e2e tests
+- Test edge cases and error conditions
+- Use meaningful test descriptions
+- Mock external dependencies properly
+- Include performance tests for critical paths
+- Generate test data factories/fixtures</pre>
+                                    </div>
+
+                                    <div class="rules-card" onclick="copyToClipboard('legacy-rules')">
+                                        <div class="rules-card-title">Legacy Refactoring</div>
+                                        <div class="rules-card-desc">Safe refactoring of existing code</div>
+                                        <pre id="legacy-rules"># Legacy Refactoring Standards
+- Maintain backward compatibility
+- Add tests before refactoring
+- Refactor in small, reviewable chunks
+- Document breaking changes clearly
+- Preserve existing behavior exactly
+- Add deprecation warnings for old APIs
+- Create migration guides for major changes</pre>
+                                    </div>
                                 </div>
+                                
+                                <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
+                                    <strong>Tip:</strong> Click any rule card to copy its contents. Combine multiple rules in your .cursorrules file.
+                                </p>
                             </div>
                         </div>
 
@@ -816,12 +924,20 @@ Focus on identifying where data could become stale or inconsistent.</pre>
                                 <div class="code-block">
                                     <pre>Identify potential security vulnerabilities in the authentication code</pre>
                                 </div>
+                                <p><strong>Also generate permanent documentation:</strong></p>
+                                <div class="code-block">
+                                    <pre>Create comprehensive README.md documenting the architecture, setup, and development workflow for new team members</pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre>Generate API documentation with examples for all endpoints</pre>
+                                </div>
                             </div>
                         </div>
 
                         <div class="setup-step">
                             <div class="setup-step-title">Learn Key Shortcuts</div>
                             <div class="setup-step-content">
+                                <p>Master the essential Cursor shortcuts for maximum productivity. For a complete reference, see our <a href="resources.html" style="color: var(--text-accent);">Cursor Resources page</a> which includes keyboard shortcuts, documentation, and video tutorials.</p>
                                 <ul>
                                     <li><strong>Cmd/Ctrl + K:</strong> Quick question about selected code</li>
                                     <li><strong>Cmd/Ctrl + L:</strong> New chat session</li>
@@ -841,6 +957,7 @@ Focus on identifying where data could become stale or inconsistent.</pre>
                                     <li>Always review generated code carefully before accepting</li>
                                     <li>Use Cursor to generate tests alongside implementation</li>
                                     <li>Ask Cursor to explain complex generated code</li>
+                                    <li><strong>Document as you go:</strong> Have Cursor generate and update technical documentation</li>
                                 </ul>
                             </div>
                         </div>
@@ -852,11 +969,11 @@ Focus on identifying where data could become stale or inconsistent.</pre>
                 <div class="workflow-card">
                     <h3 style="color: var(--text-primary); margin-bottom: 16px;">Ready to Get Started?</h3>
                     <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                        Install Cursor, open your most complex repository, and try the workflows above. 
+                        Open your most complex repository in Cursor and try the workflows above. 
                         Start with understanding your codebase architecture - you'll be surprised how quickly it clicks.
                     </p>
                     <a href="resources.html" style="color: var(--text-accent); text-decoration: none; font-weight: 600;">
-                        View Cursor Resources & Videos →
+                        Access our curated Cursor resources and video tutorials →
                     </a>
                 </div>
             </section>
@@ -864,6 +981,21 @@ Focus on identifying where data could become stale or inconsistent.</pre>
     </main>
 
     <script>
+        // Copy to clipboard functionality
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                const card = element.closest('.rules-card');
+                const originalBorder = card.style.borderColor;
+                card.style.borderColor = 'var(--text-success)';
+                setTimeout(() => {
+                    card.style.borderColor = originalBorder;
+                }, 500);
+            });
+        }
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
