@@ -78,10 +78,31 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .nav-links a:hover {
             color: #667eea;
+        }
+
+        .nav-links a.active {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
         }
 
         /* Hero Section */
@@ -358,6 +379,10 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
             .comparison-grid {
                 grid-template-columns: 1fr;
             }
@@ -399,9 +424,10 @@
                 </div>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#mindset">Mindset</a></li>
-                    <li><a href="#principles">Principles</a></li>
-                    <li><a href="#strategies">Strategies</a></li>
+                    <li><a href="mindset-shift.html" class="active">Mindset Shift</a></li>
+                    <li><a href="index.html#capabilities">Capabilities</a></li>
+                    <li><a href="best-practices.html">Best Practices</a></li>
+                    <li><a href="case-studies.html">Case Studies</a></li>
                 </ul>
             </div>
         </div>
