@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Agentic IDE Guide</title>
+    <title>Cursor Agentic IDE Guide for Senior Developers</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -18,6 +18,9 @@
             --text-success: #3fb950;
             --text-warning: #d29922;
             --text-danger: #f85149;
+            --bg-success: rgba(63, 185, 80, 0.1);
+            --bg-warning: rgba(210, 153, 34, 0.1);
+            --bg-danger: rgba(248, 81, 73, 0.1);
         }
 
         * {
@@ -101,72 +104,130 @@
             max-width: 800px;
         }
 
-        /* Grid Layout */
-        .grid {
-            display: grid;
-            gap: 24px;
-            margin-bottom: 48px;
+        /* Sections */
+        .section {
+            margin-bottom: 64px;
         }
 
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        }
-
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        /* Cards */
-        .card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
-            border-radius: 8px;
-            padding: 24px;
-            transition: border-color 0.2s;
-        }
-
-        .card:hover {
-            border-color: var(--border-secondary);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .card-icon {
-            width: 20px;
-            height: 20px;
-            color: var(--text-accent);
-        }
-
-        .card-title {
-            font-size: 18px;
+        .section-title {
+            font-size: 24px;
             font-weight: 600;
+            margin-bottom: 24px;
             color: var(--text-primary);
         }
 
-        .card-content {
+        /* Workflow Cards */
+        .workflow-grid {
+            display: grid;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .workflow-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 32px;
+            transition: border-color 0.2s;
+        }
+
+        .workflow-card:hover {
+            border-color: var(--text-accent);
+        }
+
+        .workflow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .workflow-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .workflow-scenario {
             color: var(--text-secondary);
-            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 16px;
         }
 
-        .card-content ul {
-            margin: 12px 0;
-            padding-left: 20px;
+        .time-savings {
+            background: var(--bg-success);
+            color: var(--text-success);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
-        .card-content li {
+        .workflow-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .traditional-approach, .cursor-approach {
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-primary);
+        }
+
+        .traditional-approach {
+            background: var(--bg-danger);
+            border-color: var(--text-danger);
+        }
+
+        .cursor-approach {
+            background: var(--bg-success);
+            border-color: var(--text-success);
+        }
+
+        .approach-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .traditional-approach .approach-title {
+            color: var(--text-danger);
+        }
+
+        .cursor-approach .approach-title {
+            color: var(--text-success);
+        }
+
+        .approach-steps {
+            list-style: none;
+            padding: 0;
+        }
+
+        .approach-steps li {
             margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .approach-steps li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--text-accent);
         }
 
         /* Code Blocks */
         .code-block {
             background: var(--bg-tertiary);
             border: 1px solid var(--border-primary);
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 16px;
             margin: 16px 0;
             overflow-x: auto;
@@ -180,104 +241,123 @@
             color: var(--text-primary);
         }
 
-        /* Tool Links */
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-
-        .tool-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
+        .prompt-example {
+            background: var(--bg-warning);
+            border: 1px solid var(--text-warning);
             border-radius: 8px;
-            padding: 20px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s;
+            padding: 16px;
+            margin: 16px 0;
         }
 
-        .tool-card:hover {
-            border-color: var(--text-accent);
-            transform: translateY(-2px);
-        }
-
-        .tool-name {
+        .prompt-example .prompt-title {
+            color: var(--text-warning);
             font-weight: 600;
-            color: var(--text-primary);
             margin-bottom: 8px;
-        }
-
-        .tool-description {
-            color: var(--text-secondary);
             font-size: 14px;
         }
 
-        /* Workflow Steps */
-        .workflow {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
-            border-radius: 8px;
-            padding: 24px;
-            margin: 24px 0;
-        }
-
-        .workflow-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
+        .prompt-example pre {
+            margin: 0;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
             color: var(--text-primary);
         }
 
-        .workflow-steps {
+        /* Setup Guide */
+        .setup-guide {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .setup-steps {
             counter-reset: step-counter;
         }
 
-        .workflow-step {
+        .setup-step {
             counter-increment: step-counter;
             position: relative;
             padding-left: 40px;
             margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-primary);
         }
 
-        .workflow-step::before {
+        .setup-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .setup-step::before {
             content: counter(step-counter);
             position: absolute;
             left: 0;
             top: 0;
             background: var(--text-accent);
             color: var(--bg-primary);
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
         }
 
-        .step-title {
+        .setup-step-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .setup-step-content {
+            color: var(--text-secondary);
+        }
+
+        .setup-step-content ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .setup-step-content li {
+            margin: 6px 0;
+        }
+
+        /* Skeptic Section */
+        .skeptic-section {
+            background: var(--bg-warning);
+            border: 1px solid var(--text-warning);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .skeptic-title {
+            color: var(--text-warning);
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .skeptic-qa {
+            margin-bottom: 24px;
+        }
+
+        .skeptic-question {
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
 
-        .step-content {
+        .skeptic-answer {
             color: var(--text-secondary);
-        }
-
-        /* Sections */
-        .section {
-            margin-bottom: 48px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            color: var(--text-primary);
+            margin-bottom: 16px;
         }
 
         /* Responsive */
@@ -286,12 +366,7 @@
                 display: none;
             }
             
-            .grid-2,
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            
-            .tool-grid {
+            .workflow-content {
                 grid-template-columns: 1fr;
             }
         }
@@ -309,14 +384,14 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">AI Agentic IDE Guide</div>
+                <div class="logo">Cursor Guide for Senior Developers</div>
                 <nav>
                     <ul class="nav-links">
                         <li><a href="#overview" class="active">Overview</a></li>
                         <li><a href="#workflows">Workflows</a></li>
-                        <li><a href="#patterns">Patterns</a></li>
-                        <li><a href="#examples">Examples</a></li>
-                        <li><a href="resources.html">Cursor Resources</a></li>
+                        <li><a href="#skeptics">Skeptics Guide</a></li>
+                        <li><a href="#setup">Setup</a></li>
+                        <li><a href="resources.html">Resources</a></li>
                     </ul>
                 </nav>
             </div>
@@ -326,307 +401,463 @@
     <main>
         <div class="container">
             <section id="overview" class="page-header">
-                <h1 class="page-title">AI Agentic IDE Documentation</h1>
+                <h1 class="page-title">Cursor for Senior Developers</h1>
                 <p class="page-description">
-                    Comprehensive guide for developers working with AI-powered IDEs. Includes workflows, tool configurations, 
-                    prompt patterns, and practical examples for maximum productivity.
+                    Practical workflows for experienced engineers working with large codebases. 
+                    Real scenarios, concrete examples, and estimated time savings from AI-assisted development.
                 </p>
             </section>
 
-            <section id="tools" class="section">
-                <h2 class="section-title">AI IDEs & Tools</h2>
-                <div class="tool-grid">
-                    <a href="https://cursor.sh" class="tool-card" target="_blank">
-                        <div class="tool-name">Cursor</div>
-                        <div class="tool-description">AI-first code editor built for pair-programming with AI</div>
-                    </a>
-                    <a href="https://windsurf.codeium.com" class="tool-card" target="_blank">
-                        <div class="tool-name">Windsurf</div>
-                        <div class="tool-description">Codeium's agentic IDE with autonomous coding capabilities</div>
-                    </a>
-                    <a href="https://github.com/features/copilot" class="tool-card" target="_blank">
-                        <div class="tool-name">GitHub Copilot</div>
-                        <div class="tool-description">AI pair programmer for VS Code and other editors</div>
-                    </a>
-                    <a href="https://supermaven.com" class="tool-card" target="_blank">
-                        <div class="tool-name">Supermaven</div>
-                        <div class="tool-description">Fast AI code completion with large context windows</div>
-                    </a>
-                    <a href="https://continue.dev" class="tool-card" target="_blank">
-                        <div class="tool-name">Continue</div>
-                        <div class="tool-description">Open-source AI code assistant for VS Code</div>
-                    </a>
-                    <a href="https://codeium.com" class="tool-card" target="_blank">
-                        <div class="tool-name">Codeium</div>
-                        <div class="tool-description">Free AI-powered code acceleration</div>
-                    </a>
-                </div>
-            </section>
-
             <section id="workflows" class="section">
-                <h2 class="section-title">Core Workflows</h2>
+                <h2 class="section-title">Real Workflows That Matter</h2>
                 
-                <div class="workflow">
-                    <h3 class="workflow-title">Project Initialization</h3>
-                    <div class="workflow-steps">
-                        <div class="workflow-step">
-                            <div class="step-title">Define Project Context</div>
-                            <div class="step-content">
-                                Create a comprehensive project brief including tech stack, requirements, constraints, and coding standards.
+                <div class="workflow-grid">
+                    <div class="workflow-card">
+                        <div class="workflow-header">
+                            <div>
+                                <h3 class="workflow-title">Legacy Codebase Understanding</h3>
+                                <p class="workflow-scenario">
+                                    "I just inherited this 80k line React/Node codebase. The previous team is gone. 
+                                    I need to understand the architecture and add a new payment integration."
+                                </p>
+                            </div>
+                            <div class="time-savings">Est. 3 days → 4 hours</div>
+                        </div>
+                        
+                        <div class="workflow-content">
+                            <div class="traditional-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-times-circle"></i>
+                                    Traditional Approach
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Read through package.json and README (often outdated)</li>
+                                    <li>Open random files trying to understand structure</li>
+                                    <li>Grep for payment-related code patterns</li>
+                                    <li>Draw architecture diagrams on whiteboard</li>
+                                    <li>Ask former colleagues who may not remember</li>
+                                    <li>Spend days understanding data flow</li>
+                                    <li>Finally start coding the payment feature</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cursor-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    Cursor Workflow
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Open repo in Cursor (indexes entire codebase)</li>
+                                    <li>Ask: "Explain the overall architecture of this codebase"</li>
+                                    <li>Ask: "How does payment processing currently work?"</li>
+                                    <li>Ask: "Show me all the API endpoints and their purposes"</li>
+                                    <li>Request: "Generate a data flow diagram for user checkout"</li>
+                                    <li>Get instant understanding of patterns and conventions</li>
+                                    <li>Start implementing payment feature with full context</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Setup AI Configuration</div>
-                            <div class="step-content">
-                                Configure your IDE settings, create .cursorrules or equivalent configuration files for consistent AI behavior.
-                            </div>
-                        </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Establish File Structure</div>
-                            <div class="step-content">
-                                Generate initial project structure with AI assistance, ensuring it follows your architectural patterns.
-                            </div>
-                        </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Create Base Templates</div>
-                            <div class="step-content">
-                                Generate boilerplate code, configuration files, and development setup scripts.
-                            </div>
+                        
+                        <div class="prompt-example">
+                            <div class="prompt-title">Actual Cursor Prompt:</div>
+                            <pre>Analyze this codebase and explain:
+1. Overall architecture (frontend/backend structure)
+2. How user authentication works
+3. Current payment processing flow
+4. Database models and relationships
+5. API structure and key endpoints
+6. Where I should add a new Stripe payment method
+
+Focus on the most important files and patterns I need to understand.</pre>
                         </div>
                     </div>
-                </div>
 
-                <div class="workflow">
-                    <h3 class="workflow-title">Feature Development</h3>
-                    <div class="workflow-steps">
-                        <div class="workflow-step">
-                            <div class="step-title">Specification Definition</div>
-                            <div class="step-content">
-                                Write detailed requirements including acceptance criteria, edge cases, and technical constraints.
+                    <div class="workflow-card">
+                        <div class="workflow-header">
+                            <div>
+                                <h3 class="workflow-title">Large-Scale Refactoring</h3>
+                                <p class="workflow-scenario">
+                                    "We have a technical debt pattern across 47 React components where we're using 
+                                    deprecated lifecycle methods. Need to migrate to hooks consistently."
+                                </p>
+                            </div>
+                            <div class="time-savings">Est. 2 weeks → 2 days</div>
+                        </div>
+                        
+                        <div class="workflow-content">
+                            <div class="traditional-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-times-circle"></i>
+                                    Traditional Approach
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Find all files with deprecated patterns manually</li>
+                                    <li>Create refactoring checklist and plan</li>
+                                    <li>Refactor each component individually</li>
+                                    <li>Test each component after changes</li>
+                                    <li>Deal with edge cases and unique implementations</li>
+                                    <li>Ensure consistency across all changes</li>
+                                    <li>Handle merge conflicts from ongoing development</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cursor-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    Cursor Workflow
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Ask Cursor to find all deprecated lifecycle usage</li>
+                                    <li>Request analysis of refactoring complexity per file</li>
+                                    <li>Generate refactoring plan with risk assessment</li>
+                                    <li>Use Cursor to refactor batches of similar components</li>
+                                    <li>Generate updated tests for each refactored component</li>
+                                    <li>Create consistent patterns across all changes</li>
+                                    <li>Generate documentation for the new patterns</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="workflow-step">
-                            <div class="step-title">AI-Assisted Implementation</div>
-                            <div class="step-content">
-                                Use AI to generate initial implementation, focusing on business logic and core functionality.
-                            </div>
-                        </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Iterative Refinement</div>
-                            <div class="step-content">
-                                Review, test, and refine the generated code with AI assistance for optimization and edge cases.
-                            </div>
-                        </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Test Generation</div>
-                            <div class="step-content">
-                                Generate comprehensive test suites including unit, integration, and edge case tests.
-                            </div>
+                        
+                        <div class="prompt-example">
+                            <div class="prompt-title">Actual Cursor Prompt:</div>
+                            <pre>Find all React components using componentDidMount, componentDidUpdate, or componentWillUnmount.
+
+For each component:
+1. Analyze what the lifecycle methods are doing
+2. Convert to equivalent useEffect hooks
+3. Maintain the same functionality and performance
+4. Update any related tests
+5. Follow our existing hooks patterns in /src/hooks/
+
+Show me the plan first, then refactor the components in order of complexity (simple ones first).
+
+Our coding standards:
+- Use custom hooks for complex logic
+- Prefer useCallback for event handlers
+- Always include dependency arrays
+- Add TypeScript types for all hooks</pre>
                         </div>
                     </div>
-                </div>
 
-                <div class="workflow">
-                    <h3 class="workflow-title">Code Review & Refactoring</h3>
-                    <div class="workflow-steps">
-                        <div class="workflow-step">
-                            <div class="step-title">Automated Analysis</div>
-                            <div class="step-content">
-                                Use AI to analyze code for performance issues, security vulnerabilities, and maintainability concerns.
+                    <div class="workflow-card">
+                        <div class="workflow-header">
+                            <div>
+                                <h3 class="workflow-title">Context-Aware Unit Testing</h3>
+                                <p class="workflow-scenario">
+                                    "This complex business logic class has zero tests. It handles pricing calculations 
+                                    with multiple edge cases, discounts, and tax rules. Need comprehensive test coverage."
+                                </p>
+                            </div>
+                            <div class="time-savings">Est. 1 week → 1 day</div>
+                        </div>
+                        
+                        <div class="workflow-content">
+                            <div class="traditional-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-times-circle"></i>
+                                    Traditional Approach
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Read through business logic to understand all paths</li>
+                                    <li>Identify edge cases and error conditions</li>
+                                    <li>Write test cases for happy path scenarios</li>
+                                    <li>Write tests for edge cases and error handling</li>
+                                    <li>Mock external dependencies and services</li>
+                                    <li>Ensure good code coverage across all branches</li>
+                                    <li>Manually verify test quality and completeness</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cursor-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    Cursor Workflow
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Ask Cursor to analyze the business logic complexity</li>
+                                    <li>Request comprehensive test generation with edge cases</li>
+                                    <li>Generate mocks for all external dependencies</li>
+                                    <li>Create tests for error handling and validation</li>
+                                    <li>Generate performance tests for complex calculations</li>
+                                    <li>Request test documentation explaining each scenario</li>
+                                    <li>Verify coverage and add any missing test cases</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Pattern Recognition</div>
-                            <div class="step-content">
-                                Identify opportunities for design pattern application and code consolidation.
+                        
+                        <div class="prompt-example">
+                            <div class="prompt-title">Actual Cursor Prompt:</div>
+                            <pre>Generate comprehensive unit tests for this PricingCalculator class.
+
+Requirements:
+- Test all public methods with various input combinations
+- Include edge cases: zero amounts, negative values, null inputs
+- Test discount calculations with different discount types
+- Test tax calculations for different regions
+- Mock the TaxService and DiscountService dependencies
+- Use Jest with our existing test patterns in /tests/
+- Achieve >95% code coverage
+- Include performance tests for bulk calculations
+
+Focus on:
+1. Business logic correctness
+2. Error handling and validation  
+3. Integration with external services
+4. Performance under load
+
+Follow our testing conventions:
+- describe blocks for each method
+- beforeEach for common setup
+- meaningful test descriptions
+- proper assertion messages</pre>
+                        </div>
+                    </div>
+
+                    <div class="workflow-card">
+                        <div class="workflow-header">
+                            <div>
+                                <h3 class="workflow-title">Data Flow Analysis</h3>
+                                <p class="workflow-scenario">
+                                    "We have 12 microservices handling user data. Need to understand how user 
+                                    profile changes propagate through the system and identify potential data inconsistencies."
+                                </p>
+                            </div>
+                            <div class="time-savings">Est. 1 week → 6 hours</div>
+                        </div>
+                        
+                        <div class="workflow-content">
+                            <div class="traditional-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-times-circle"></i>
+                                    Traditional Approach
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Review each service's API documentation</li>
+                                    <li>Trace data flow through service calls manually</li>
+                                    <li>Check message queue configurations</li>
+                                    <li>Review database schemas and relationships</li>
+                                    <li>Interview other developers about data flows</li>
+                                    <li>Create diagrams showing service interactions</li>
+                                    <li>Identify potential race conditions and inconsistencies</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cursor-approach">
+                                <div class="approach-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    Cursor Workflow
+                                </div>
+                                <ul class="approach-steps">
+                                    <li>Ask Cursor to map all services that handle user data</li>
+                                    <li>Request data flow analysis from user service to all consumers</li>
+                                    <li>Generate sequence diagrams for user profile updates</li>
+                                    <li>Identify potential race conditions and data staleness</li>
+                                    <li>Analyze event/message patterns and dependencies</li>
+                                    <li>Request recommendations for data consistency improvements</li>
+                                    <li>Generate monitoring queries to detect data drift</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Refactoring Implementation</div>
-                            <div class="step-content">
-                                Execute refactoring with AI assistance while maintaining functionality and test coverage.
-                            </div>
-                        </div>
-                        <div class="workflow-step">
-                            <div class="step-title">Documentation Update</div>
-                            <div class="step-content">
-                                Generate or update documentation, comments, and API specifications to reflect changes.
-                            </div>
+                        
+                        <div class="prompt-example">
+                            <div class="prompt-title">Actual Cursor Prompt:</div>
+                            <pre>Analyze how user profile data flows through our microservices architecture.
+
+Map out:
+1. All services that read/write user profile data
+2. Event/message flows when user profile changes
+3. Database dependencies and sync patterns
+4. Potential race conditions and data consistency issues
+5. Cache invalidation strategies across services
+
+Generate:
+- Sequence diagram for "user updates email address"
+- Data dependency graph showing all user data relationships  
+- List of potential failure scenarios and their impact
+- Monitoring queries to detect data inconsistencies
+- Recommendations for improving data consistency
+
+Services to analyze:
+- user-service (primary)
+- auth-service  
+- notification-service
+- billing-service
+- analytics-service
+- recommendations-service
+
+Focus on identifying where data could become stale or inconsistent.</pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="patterns" class="section">
-                <h2 class="section-title">Effective Patterns</h2>
-                
-                <div class="grid grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-comments card-icon"></i>
-                            <h3 class="card-title">Context-Rich Prompts</h3>
-                        </div>
-                        <div class="card-content">
-                            <p>Provide comprehensive context for better AI responses:</p>
-                            <ul>
-                                <li>Current codebase patterns and conventions</li>
-                                <li>Technology stack and version constraints</li>
-                                <li>Performance and security requirements</li>
-                                <li>Team coding standards and preferences</li>
-                                <li>Existing architecture and design patterns</li>
+            <section id="skeptics" class="section">
+                <div class="skeptic-section">
+                    <h2 class="skeptic-title">Addressing the Skepticism</h2>
+                    
+                    <div class="skeptic-qa">
+                        <div class="skeptic-question">Q: "AI loses context in large codebases. How does Cursor handle my 200k line repo?"</div>
+                        <div class="skeptic-answer">
+                            <strong>A:</strong> Cursor indexes your entire repository and maintains context through multiple mechanisms:
+                            <ul style="margin-top: 8px; padding-left: 20px;">
+                                <li>Semantic search across all files to find relevant code</li>
+                                <li>Codebase-wide symbol understanding (functions, classes, interfaces)</li>
+                                <li>File relationship mapping through imports and dependencies</li>
+                                <li>You can explicitly reference files with @filename in prompts</li>
+                                <li>It learns your coding patterns and conventions from existing code</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-cogs card-icon"></i>
-                            <h3 class="card-title">Incremental Development</h3>
-                        </div>
-                        <div class="card-content">
-                            <p>Build features incrementally with AI assistance:</p>
-                            <ul>
-                                <li>Start with minimal working implementation</li>
-                                <li>Add features one at a time</li>
-                                <li>Test and validate at each step</li>
-                                <li>Refactor and optimize continuously</li>
-                                <li>Document decisions and trade-offs</li>
+                    <div class="skeptic-qa">
+                        <div class="skeptic-question">Q: "AI-generated code is usually garbage that needs complete rewriting."</div>
+                        <div class="skeptic-answer">
+                            <strong>A:</strong> When given proper context and constraints, Cursor generates production-quality code:
+                            <ul style="margin-top: 8px; padding-left: 20px;">
+                                <li>It follows your existing patterns and coding standards automatically</li>
+                                <li>Provide it with examples of good code from your codebase</li>
+                                <li>Specify non-functional requirements (performance, security, testing)</li>
+                                <li>Use iterative refinement - start simple, add complexity</li>
+                                <li>Review and refine output just like you would in code review</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-shield-alt card-icon"></i>
-                            <h3 class="card-title">Quality Assurance</h3>
-                        </div>
-                        <div class="card-content">
-                            <p>Maintain code quality with systematic checks:</p>
-                            <ul>
-                                <li>Define acceptance criteria upfront</li>
-                                <li>Generate comprehensive test suites</li>
-                                <li>Implement code review checklists</li>
-                                <li>Validate security and performance</li>
-                                <li>Maintain documentation standards</li>
+                    <div class="skeptic-qa">
+                        <div class="skeptic-question">Q: "It's faster to just write the code myself than explain it to AI."</div>
+                        <div class="skeptic-answer">
+                            <strong>A:</strong> For simple tasks, yes. But Cursor excels at complex, time-consuming work:
+                            <ul style="margin-top: 8px; padding-left: 20px;">
+                                <li>Boilerplate generation (API endpoints, CRUD operations, tests)</li>
+                                <li>Large-scale refactoring across multiple files</li>
+                                <li>Understanding unfamiliar codebases quickly</li>
+                                <li>Generating comprehensive test suites</li>
+                                <li>Complex business logic with many edge cases</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-sync-alt card-icon"></i>
-                            <h3 class="card-title">Iterative Improvement</h3>
-                        </div>
-                        <div class="card-content">
-                            <p>Continuously improve code with AI feedback:</p>
-                            <ul>
-                                <li>Regular code analysis and suggestions</li>
-                                <li>Performance profiling and optimization</li>
-                                <li>Security vulnerability scanning</li>
-                                <li>Technical debt identification</li>
-                                <li>Refactoring opportunities assessment</li>
+                    <div class="skeptic-qa">
+                        <div class="skeptic-question">Q: "I can't trust AI with critical business logic."</div>
+                        <div class="skeptic-answer">
+                            <strong>A:</strong> Don't trust blindly - use AI as a sophisticated pair programmer:
+                            <ul style="margin-top: 8px; padding-left: 20px;">
+                                <li>Generate comprehensive tests alongside the implementation</li>
+                                <li>Request AI to explain its reasoning and approach</li>
+                                <li>Use AI to review and critique its own code</li>
+                                <li>Implement in small, reviewable chunks</li>
+                                <li>Your domain expertise guides the AI, not the other way around</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="examples" class="section">
-                <h2 class="section-title">Practical Examples</h2>
-
-                <div class="card mb-24">
-                    <div class="card-header">
-                        <i class="fas fa-code card-icon"></i>
-                        <h3 class="card-title">API Development Example</h3>
-                    </div>
-                    <div class="card-content">
-                        <p>Example prompt for generating a REST API endpoint:</p>
-                        <div class="code-block">
-                            <pre>Create a REST API endpoint for user authentication that:
-
-- Uses Express.js and TypeScript
-- Implements JWT token-based authentication
-- Includes email/password validation
-- Returns proper HTTP status codes
-- Includes error handling and logging
-- Follows our existing API patterns in /src/routes/
-- Uses our UserService class for database operations
-- Includes rate limiting and security headers
-- Generates OpenAPI documentation
-- Includes comprehensive unit tests</pre>
+            <section id="setup" class="section">
+                <h2 class="section-title">Get Productive in 30 Minutes</h2>
+                
+                <div class="setup-guide">
+                    <div class="setup-steps">
+                        <div class="setup-step">
+                            <div class="setup-step-title">Install and Configure Cursor</div>
+                            <div class="setup-step-content">
+                                <ul>
+                                    <li>Download Cursor from <a href="https://cursor.sh" style="color: var(--text-accent);">cursor.sh</a></li>
+                                    <li>Sign in with GitHub/Google (enables cloud features)</li>
+                                    <li>Install in Applications folder (macOS) or Program Files (Windows)</li>
+                                    <li>Import your existing VS Code extensions and settings if desired</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="card mb-24">
-                    <div class="card-header">
-                        <i class="fas fa-database card-icon"></i>
-                        <h3 class="card-title">Database Migration Example</h3>
-                    </div>
-                    <div class="card-content">
-                        <p>Example prompt for database schema changes:</p>
-                        <div class="code-block">
-                            <pre>Create a database migration for adding user roles that:
-
-- Uses Prisma with PostgreSQL
-- Adds a 'roles' table with id, name, permissions columns
-- Creates a many-to-many relationship with users
-- Includes proper indexes for performance
-- Provides rollback migration
-- Seeds default roles (admin, user, moderator)
-- Updates existing TypeScript types
-- Includes migration tests
-- Follows our existing schema patterns</pre>
+                        <div class="setup-step">
+                            <div class="setup-step-title">Open Your Largest, Most Complex Repository</div>
+                            <div class="setup-step-content">
+                                <ul>
+                                    <li>Clone your most challenging repo locally</li>
+                                    <li>Open the entire folder in Cursor (not individual files)</li>
+                                    <li>Let Cursor index the codebase (shows progress in status bar)</li>
+                                    <li>Wait for indexing to complete before starting prompts</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="card mb-24">
-                    <div class="card-header">
-                        <i class="fas fa-mobile-alt card-icon"></i>
-                        <h3 class="card-title">Component Development Example</h3>
-                    </div>
-                    <div class="card-content">
-                        <p>Example prompt for React component creation:</p>
-                        <div class="code-block">
-                            <pre>Create a reusable DataTable component that:
+                        <div class="setup-step">
+                            <div class="setup-step-title">Create a .cursorrules File</div>
+                            <div class="setup-step-content">
+                                <p>Create a .cursorrules file in your project root to establish coding standards:</p>
+                                <div class="code-block">
+                                    <pre># Project Coding Standards
+- Use TypeScript with strict mode
+- Follow existing patterns in /src/
+- Generate comprehensive tests for all new code
+- Include error handling and input validation
+- Use our logging format from utils/logger
+- Follow our API response patterns
+- Include JSDoc comments for complex functions
+- Use functional components with hooks (React projects)</pre>
+                                </div>
+                            </div>
+                        </div>
 
-- Uses React with TypeScript
-- Implements sorting, filtering, and pagination
-- Supports custom column definitions
-- Uses Tailwind CSS for styling
-- Includes loading and error states
-- Follows our component patterns in /src/components/
-- Uses our custom hooks for data fetching
-- Includes accessibility features (ARIA labels)
-- Supports responsive design
-- Includes Storybook stories and unit tests</pre>
+                        <div class="setup-step">
+                            <div class="setup-step-title">Test Drive with Real Work</div>
+                            <div class="setup-step-content">
+                                <p>Start with one of these prompts using your actual codebase:</p>
+                                <div class="code-block">
+                                    <pre>Explain the overall architecture of this codebase in detail</pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre>Find all TODO comments and create GitHub issues for them</pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre>Generate unit tests for [specific file/class] with >90% coverage</pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre>Identify potential security vulnerabilities in the authentication code</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setup-step">
+                            <div class="setup-step-title">Learn Key Shortcuts</div>
+                            <div class="setup-step-content">
+                                <ul>
+                                    <li><strong>Cmd/Ctrl + K:</strong> Quick question about selected code</li>
+                                    <li><strong>Cmd/Ctrl + L:</strong> New chat session</li>
+                                    <li><strong>@filename:</strong> Reference specific files in prompts</li>
+                                    <li><strong>Cmd/Ctrl + I:</strong> Inline edit mode</li>
+                                    <li><strong>Cmd/Ctrl + Shift + L:</strong> Apply AI suggestions</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="setup-step">
+                            <div class="setup-step-title">Establish Your Workflow</div>
+                            <div class="setup-step-content">
+                                <ul>
+                                    <li>Start each work session by asking Cursor about your current task</li>
+                                    <li>Use descriptive prompts with business context, not just technical requirements</li>
+                                    <li>Always review generated code carefully before accepting</li>
+                                    <li>Use Cursor to generate tests alongside implementation</li>
+                                    <li>Ask Cursor to explain complex generated code</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-book card-icon"></i>
-                        <h3 class="card-title">Configuration Files</h3>
-                    </div>
-                    <div class="card-content">
-                        <p>Essential configuration files for AI IDE optimization:</p>
-                        <ul>
-                            <li><strong>.cursorrules</strong> - Cursor IDE behavior and coding standards</li>
-                            <li><strong>.windsurfrules</strong> - Windsurf IDE configuration</li>
-                            <li><strong>.vscode/settings.json</strong> - VS Code AI assistant settings</li>
-                            <li><strong>ai-instructions.md</strong> - Project-specific AI guidelines</li>
-                            <li><strong>coding-standards.md</strong> - Team coding conventions</li>
-                        </ul>
-                        <p style="margin-top: 16px;">
-                            <a href="resources.html" style="color: var(--text-accent); text-decoration: none;">
-                                View detailed resources and documentation →
-                            </a>
-                        </p>
-                    </div>
+                <div class="workflow-card">
+                    <h3 style="color: var(--text-primary); margin-bottom: 16px;">Ready to Get Started?</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        Install Cursor, open your most complex repository, and try the workflows above. 
+                        Start with understanding your codebase architecture - you'll be surprised how quickly it clicks.
+                    </p>
+                    <a href="resources.html" style="color: var(--text-accent); text-decoration: none; font-weight: 600;">
+                        View Cursor Resources & Videos →
+                    </a>
                 </div>
             </section>
         </div>
