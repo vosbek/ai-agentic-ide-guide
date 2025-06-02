@@ -267,6 +267,161 @@
             color: var(--text-accent);
         }
 
+        /* Community Videos Section */
+        .community-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .community-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .community-screenshot {
+            flex-shrink: 0;
+            width: 300px;
+            height: 200px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community-screenshot::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            opacity: 0.5;
+        }
+
+        .community-screenshot .placeholder-content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .community-screenshot .play-icon {
+            font-size: 32px;
+            color: var(--text-accent);
+            margin-bottom: 8px;
+        }
+
+        .community-content {
+            flex: 1;
+        }
+
+        .community-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .community-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .community-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text-accent);
+            color: var(--bg-primary);
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .community-cta:hover {
+            background: #4a94e8;
+            color: var(--bg-primary);
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* Collapsible Section */
+        .collapsible-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            margin: 32px 0;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            padding: 20px 24px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .collapsible-header:hover {
+            background: var(--bg-secondary);
+        }
+
+        .collapsible-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .collapsible-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .collapsible-icon {
+            color: var(--text-accent);
+            transition: transform 0.3s ease;
+            font-size: 16px;
+        }
+
+        .collapsible-content {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .collapsible-content.expanded {
+            max-height: 2000px;
+            padding: 24px;
+        }
+
+        .collapsible-icon.expanded {
+            transform: rotate(180deg);
+        }
+
         /* Warning Box */
         .warning-box {
             background: rgba(248, 81, 73, 0.1);
@@ -386,6 +541,16 @@
             
             .tool-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .community-header {
+                flex-direction: column;
+            }
+
+            .community-screenshot {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
             }
         }
 
@@ -622,107 +787,46 @@
                         <div class="tool-name">💬 AI Commit Messages</div>
                         <div class="tool-description">Automatically generate meaningful, conventional commit messages based on your code changes.</div>
                     </a>
-                    <a href="https://cursor.directory/learn" target="_blank" class="tool-card">
-                        <div class="tool-name">📺 Community Videos</div>
-                        <div class="tool-description">A comprehensive collection of community-created videos covering various Cursor features and workflows.</div>
-                    </a>
                 </div>
             </section>
 
-            <section id="other-ides" class="section">
-                <h2 class="section-title">Other AI IDE Resources</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 32px;">
-                    Documentation and resources for other popular AI-powered development environments.
-                </p>
-
-                <div class="tool-grid">
-                    <a href="https://windsurf.codeium.com" target="_blank" class="tool-card">
-                        <div class="tool-name">Windsurf</div>
-                        <div class="tool-description">Codeium's agentic IDE with autonomous coding capabilities</div>
-                        <ul class="tool-features">
-                            <li>Autonomous code generation and editing</li>
-                            <li>Multi-file context understanding</li>
-                            <li>Advanced debugging assistance</li>
-                            <li>Integrated terminal and git operations</li>
-                        </ul>
-                    </a>
-                    
-                    <a href="https://github.com/features/copilot" target="_blank" class="tool-card">
-                        <div class="tool-name">GitHub Copilot</div>
-                        <div class="tool-description">AI pair programmer for VS Code and other editors</div>
-                        <ul class="tool-features">
-                            <li>Intelligent code completions</li>
-                            <li>Natural language to code conversion</li>
-                            <li>Context-aware suggestions</li>
-                            <li>Multi-language support</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://supermaven.com" target="_blank" class="tool-card">
-                        <div class="tool-name">Supermaven</div>
-                        <div class="tool-description">Fast AI code completion with large context windows</div>
-                        <ul class="tool-features">
-                            <li>1 million token context window</li>
-                            <li>Sub-100ms completion speed</li>
-                            <li>High-quality code suggestions</li>
-                            <li>Support for major IDEs</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://continue.dev" target="_blank" class="tool-card">
-                        <div class="tool-name">Continue</div>
-                        <div class="tool-description">Open-source AI code assistant for VS Code</div>
-                        <ul class="tool-features">
-                            <li>Open-source and customizable</li>
-                            <li>Multiple AI model support</li>
-                            <li>Local and cloud deployment options</li>
-                            <li>Extensible plugin architecture</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://codeium.com" target="_blank" class="tool-card">
-                        <div class="tool-name">Codeium</div>
-                        <div class="tool-description">Free AI-powered code acceleration</div>
-                        <ul class="tool-features">
-                            <li>Free tier with generous limits</li>
-                            <li>40+ language support</li>
-                            <li>IDE integrations available</li>
-                            <li>Chat and autocomplete features</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://docs.github.com/en/copilot" target="_blank" class="tool-card">
-                        <div class="tool-name">GitHub Copilot Docs</div>
-                        <div class="tool-description">Official documentation for GitHub Copilot setup and usage</div>
-                        <ul class="tool-features">
-                            <li>Installation and setup guides</li>
-                            <li>Best practices for prompting</li>
-                            <li>Integration tutorials</li>
-                            <li>Troubleshooting resources</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://continue.dev/docs" target="_blank" class="tool-card">
-                        <div class="tool-name">Continue Documentation</div>
-                        <div class="tool-description">Comprehensive guides for Continue AI assistant</div>
-                        <ul class="tool-features">
-                            <li>Configuration and customization</li>
-                            <li>Model integration guides</li>
-                            <li>Plugin development</li>
-                            <li>Self-hosting instructions</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://codeium.com/blog" target="_blank" class="tool-card">
-                        <div class="tool-name">Codeium Blog</div>
-                        <div class="tool-description">Updates, tutorials, and best practices from the Codeium team</div>
-                        <ul class="tool-features">
-                            <li>Feature announcements</li>
-                            <li>Usage tutorials and tips</li>
-                            <li>Industry insights</li>
-                            <li>Performance benchmarks</li>
-                        </ul>
-                    </a>
+            <!-- Community Videos Section -->
+            <section id="community-videos" class="section">
+                <div class="community-section">
+                    <div class="community-header">
+                        <div class="community-screenshot">
+                            <div class="placeholder-content">
+                                <div class="play-icon">
+                                    <i class="fas fa-play-circle"></i>
+                                </div>
+                                <div>Community Video Collection</div>
+                                <div style="font-size: 12px; margin-top: 8px;">cursor.directory/learn</div>
+                            </div>
+                        </div>
+                        <div class="community-content">
+                            <h2 class="community-title">
+                                <i class="fas fa-users"></i>
+                                Community Videos
+                            </h2>
+                            <p class="community-description">
+                                Explore a comprehensive collection of community-created videos covering various Cursor features, workflows, and real-world usage scenarios. Learn from experienced developers sharing their tips, tricks, and advanced techniques for maximizing Cursor's potential.
+                            </p>
+                            <div style="margin-bottom: 16px;">
+                                <strong style="color: var(--text-primary);">What you'll find:</strong>
+                                <ul style="margin-top: 8px; color: var(--text-secondary);">
+                                    <li>Real-world development workflows and case studies</li>
+                                    <li>Advanced features and customization techniques</li>
+                                    <li>Integration patterns with popular frameworks</li>
+                                    <li>Productivity tips from experienced Cursor users</li>
+                                    <li>Problem-solving approaches for complex scenarios</li>
+                                </ul>
+                            </div>
+                            <a href="https://cursor.directory/learn" target="_blank" class="community-cta">
+                                <i class="fas fa-external-link-alt"></i>
+                                Watch Community Videos
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -780,10 +884,127 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Collapsible Other AI Resources Section -->
+            <section id="other-ai-resources" class="section">
+                <div class="collapsible-section">
+                    <div class="collapsible-header" onclick="toggleCollapsible('other-ai-content')">
+                        <div>
+                            <h2 class="collapsible-title">Other AI IDE Resources</h2>
+                            <div class="collapsible-subtitle">Documentation and resources for alternative AI-powered development environments</div>
+                        </div>
+                        <i class="fas fa-chevron-down collapsible-icon" id="other-ai-icon"></i>
+                    </div>
+                    <div class="collapsible-content" id="other-ai-content">
+                        <p style="color: var(--text-secondary); margin-bottom: 32px;">
+                            Documentation and resources for other popular AI-powered development environments.
+                        </p>
+
+                        <div class="tool-grid">
+                            <a href="https://windsurf.codeium.com" target="_blank" class="tool-card">
+                                <div class="tool-name">Windsurf</div>
+                                <div class="tool-description">Codeium's agentic IDE with autonomous coding capabilities</div>
+                                <ul class="tool-features">
+                                    <li>Autonomous code generation and editing</li>
+                                    <li>Multi-file context understanding</li>
+                                    <li>Advanced debugging assistance</li>
+                                    <li>Integrated terminal and git operations</li>
+                                </ul>
+                            </a>
+                            
+                            <a href="https://github.com/features/copilot" target="_blank" class="tool-card">
+                                <div class="tool-name">GitHub Copilot</div>
+                                <div class="tool-description">AI pair programmer for VS Code and other editors</div>
+                                <ul class="tool-features">
+                                    <li>Intelligent code completions</li>
+                                    <li>Natural language to code conversion</li>
+                                    <li>Context-aware suggestions</li>
+                                    <li>Multi-language support</li>
+                                </ul>
+                            </a>
+
+                            <a href="https://supermaven.com" target="_blank" class="tool-card">
+                                <div class="tool-name">Supermaven</div>
+                                <div class="tool-description">Fast AI code completion with large context windows</div>
+                                <ul class="tool-features">
+                                    <li>1 million token context window</li>
+                                    <li>Sub-100ms completion speed</li>
+                                    <li>High-quality code suggestions</li>
+                                    <li>Support for major IDEs</li>
+                                </ul>
+                            </a>
+
+                            <a href="https://continue.dev" target="_blank" class="tool-card">
+                                <div class="tool-name">Continue</div>
+                                <div class="tool-description">Open-source AI code assistant for VS Code</div>
+                                <ul class="tool-features">
+                                    <li>Open-source and customizable</li>
+                                    <li>Multiple AI model support</li>
+                                    <li>Local and cloud deployment options</li>
+                                    <li>Extensible plugin architecture</li>
+                                </ul>
+                            </a>
+
+                            <a href="https://codeium.com" target="_blank" class="tool-card">
+                                <div class="tool-name">Codeium</div>
+                                <div class="tool-description">Free AI-powered code acceleration</div>
+                                <ul class="tool-features">
+                                    <li>Free tier with generous limits</li>
+                                    <li>40+ language support</li>
+                                    <li>IDE integrations available</li>
+                                    <li>Chat and autocomplete features</li>
+                                </ul>
+                            </a>
+
+                            <a href="https://docs.github.com/en/copilot" target="_blank" class="tool-card">
+                                <div class="tool-name">GitHub Copilot Docs</div>
+                                <div class="tool-description">Official documentation for GitHub Copilot setup and usage</div>
+                                <ul class="tool-features">
+                                    <li>Installation and setup guides</li>
+                                    <li>Best practices for prompting</li>
+                                    <li>Integration tutorials</li>
+                                    <li>Troubleshooting resources</li>
+                                </ul>
+                            </a>
+
+                            <a href="https://continue.dev/docs" target="_blank" class="tool-card">
+                                <div class="tool-name">Continue Documentation</div>
+                                <div class="tool-description">Comprehensive guides for Continue AI assistant</div>
+                                <ul class="tool-features">
+                                    <li>Configuration and customization</li>
+                                    <li>Model integration guides</li>
+                                    <li>Plugin development</li>
+                                    <li>Self-hosting instructions</li>
+                                </ul>
+                            </a>
+
+                            <a href="https://codeium.com/blog" target="_blank" class="tool-card">
+                                <div class="tool-name">Codeium Blog</div>
+                                <div class="tool-description">Updates, tutorials, and best practices from the Codeium team</div>
+                                <ul class="tool-features">
+                                    <li>Feature announcements</li>
+                                    <li>Usage tutorials and tips</li>
+                                    <li>Industry insights</li>
+                                    <li>Performance benchmarks</li>
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
     <script>
+        // Collapsible functionality
+        function toggleCollapsible(contentId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(contentId.replace('content', 'icon'));
+            
+            content.classList.toggle('expanded');
+            icon.classList.toggle('expanded');
+        }
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
