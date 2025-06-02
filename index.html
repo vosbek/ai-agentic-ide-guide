@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Agentic IDE Guide - Master the Future of Development</title>
+    <title>AI Agentic IDE Guide</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --dark-bg: #0f0f23;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --hover-glow: rgba(102, 126, 234, 0.3);
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-primary: #30363d;
+            --border-secondary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #7d8590;
+            --text-accent: #58a6ff;
+            --text-success: #3fb950;
+            --text-warning: #d29922;
+            --text-danger: #f85149;
         }
 
         * {
@@ -25,282 +27,256 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--dark-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 24px;
         }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            background: radial-gradient(ellipse at center, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 16px 0;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 198, 255, 0.3) 0%, transparent 50%);
-            filter: blur(100px);
-            z-index: -1;
+            z-index: 100;
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 3rem;
-            background: var(--primary-gradient);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 0;
-            background: rgba(15, 15, 35, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--card-border);
-            z-index: 1000;
-        }
-
-        .nav-container {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .nav-links {
             display: flex;
+            gap: 32px;
             list-style: none;
-            gap: 2rem;
         }
 
         .nav-links a {
-            color: var(--text-primary);
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.2s;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-gradient);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Sections */
-        .section {
-            padding: 6rem 0;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            text-align: center;
-            margin-bottom: 3rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Feature Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent-gradient);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--text-primary);
         }
 
-        .feature-card p {
+        /* Main Content */
+        main {
+            padding: 48px 0;
+        }
+
+        .page-header {
+            margin-bottom: 48px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .page-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 800px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--border-secondary);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--text-accent);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-content {
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        /* Quick Start Section */
-        .quick-start {
-            background: rgba(102, 126, 234, 0.05);
-            border-radius: 30px;
-            padding: 4rem;
-            margin: 4rem 0;
-            text-align: center;
+        .card-content ul {
+            margin: 12px 0;
+            padding-left: 20px;
         }
 
-        .quick-start-grid {
+        .card-content li {
+            margin: 8px 0;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        /* Tool Links */
+        .tool-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 16px;
+            margin: 24px 0;
         }
 
-        .quick-start-item {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .quick-start-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-5px);
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: var(--primary-gradient);
-            border-radius: 50%;
-            color: white;
-            font-weight: 700;
-            line-height: 40px;
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid var(--card-border);
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            color: var(--text-secondary);
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
+        .tool-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 20px;
             text-decoration: none;
-            transition: color 0.3s ease;
+            color: inherit;
+            transition: all 0.2s;
         }
 
-        .footer-links a:hover {
+        .tool-card:hover {
+            border-color: var(--text-accent);
+            transform: translateY(-2px);
+        }
+
+        .tool-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .workflow-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .workflow-steps {
+            counter-reset: step-counter;
+        }
+
+        .workflow-step {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 24px;
+        }
+
+        .workflow-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--text-accent);
+            color: var(--bg-primary);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .step-content {
+            color: var(--text-secondary);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
             color: var(--text-primary);
         }
 
@@ -310,179 +286,349 @@
                 display: none;
             }
             
-            .hero {
-                padding: 2rem 0;
-            }
-            
-            .features-grid {
+            .grid-2,
+            .grid-3 {
                 grid-template-columns: 1fr;
             }
             
-            .quick-start {
-                padding: 2rem;
+            .tool-grid {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Loading animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out;
-        }
+        /* Utility Classes */
+        .text-success { color: var(--text-success); }
+        .text-warning { color: var(--text-warning); }
+        .text-danger { color: var(--text-danger); }
+        .text-muted { color: var(--text-secondary); }
+        .mb-24 { margin-bottom: 24px; }
+        .mt-24 { margin-top: 24px; }
     </style>
 </head>
 <body>
-    <nav>
+    <header>
         <div class="container">
-            <div class="nav-container">
+            <div class="header-content">
                 <div class="logo">AI Agentic IDE Guide</div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="mindset-shift.html">Mindset Shift</a></li>
-                    <li><a href="#capabilities">Capabilities</a></li>
-                    <li><a href="best-practices.html">Best Practices</a></li>
-                    <li><a href="case-studies.html">Case Studies</a></li>
-                </ul>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#overview" class="active">Overview</a></li>
+                        <li><a href="#workflows">Workflows</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#patterns">Patterns</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <section id="home" class="hero">
+    <main>
         <div class="container">
-            <div class="hero-content fade-in">
-                <h1>Master AI Agentic IDEs</h1>
-                <p class="hero-subtitle">
-                    Transform your development approach with AI-powered coding environments. 
-                    Learn strategic mindset shifts that separate advanced developers from the rest.
+            <section id="overview" class="page-header">
+                <h1 class="page-title">AI Agentic IDE Documentation</h1>
+                <p class="page-description">
+                    Comprehensive guide for developers working with AI-powered IDEs. Includes workflows, tool configurations, 
+                    prompt patterns, and practical examples for maximum productivity.
                 </p>
-                <a href="mindset-shift.html" class="cta-button">
-                    <i class="fas fa-rocket"></i> Shift Your Mindset
-                </a>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section id="capabilities" class="section">
-        <div class="container">
-            <h2 class="section-title">What AI Agentic IDEs Excel At</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Intelligent Code Synthesis</h3>
-                    <p>Generate complex, contextually-aware code structures from high-level descriptions. Transform architectural concepts into production-ready implementations with minimal iteration.</p>
+            <section id="tools" class="section">
+                <h2 class="section-title">AI IDEs & Tools</h2>
+                <div class="tool-grid">
+                    <a href="https://cursor.sh" class="tool-card" target="_blank">
+                        <div class="tool-name">Cursor</div>
+                        <div class="tool-description">AI-first code editor built for pair-programming with AI</div>
+                    </a>
+                    <a href="https://windsurf.codeium.com" class="tool-card" target="_blank">
+                        <div class="tool-name">Windsurf</div>
+                        <div class="tool-description">Codeium's agentic IDE with autonomous coding capabilities</div>
+                    </a>
+                    <a href="https://github.com/features/copilot" class="tool-card" target="_blank">
+                        <div class="tool-name">GitHub Copilot</div>
+                        <div class="tool-description">AI pair programmer for VS Code and other editors</div>
+                    </a>
+                    <a href="https://supermaven.com" class="tool-card" target="_blank">
+                        <div class="tool-name">Supermaven</div>
+                        <div class="tool-description">Fast AI code completion with large context windows</div>
+                    </a>
+                    <a href="https://continue.dev" class="tool-card" target="_blank">
+                        <div class="tool-name">Continue</div>
+                        <div class="tool-description">Open-source AI code assistant for VS Code</div>
+                    </a>
+                    <a href="https://codeium.com" class="tool-card" target="_blank">
+                        <div class="tool-name">Codeium</div>
+                        <div class="tool-description">Free AI-powered code acceleration</div>
+                    </a>
                 </div>
+            </section>
 
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Contextual Code Understanding</h3>
-                    <p>Analyze entire codebases to understand patterns, dependencies, and architectural decisions. Make informed suggestions based on your project's specific context and constraints.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h3>Rapid Iteration & Refinement</h3>
-                    <p>Accelerate the feedback loop between concept and implementation. Quickly explore multiple approaches, test ideas, and refine solutions in real-time collaboration.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Pattern Recognition & Application</h3>
-                    <p>Identify and apply best practices, design patterns, and architectural solutions. Learn from vast codebases and apply proven patterns to novel problems.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Error Prevention & Recovery</h3>
-                    <p>Anticipate common pitfalls and suggest preventive measures. Provide intelligent debugging assistance and error resolution strategies based on context.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Accelerated Learning Curves</h3>
-                    <p>Quickly onboard to new technologies, frameworks, and patterns. Get intelligent explanations and examples tailored to your experience level and project needs.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="quick-start" class="section">
-        <div class="container">
-            <div class="quick-start">
-                <h2>Strategic Adoption Path</h2>
-                <p>A systematic approach to mastering AI Agentic IDEs for experienced developers</p>
+            <section id="workflows" class="section">
+                <h2 class="section-title">Core Workflows</h2>
                 
-                <div class="quick-start-grid">
-                    <div class="quick-start-item">
-                        <div class="step-number">1</div>
-                        <h3>Shift Your Mental Model</h3>
-                        <p>Move from "writing code" to "directing AI to solve problems". Learn to think in terms of intent and constraints rather than implementation details.</p>
-                    </div>
-                    
-                    <div class="quick-start-item">
-                        <div class="step-number">2</div>
-                        <h3>Master Prompt Engineering</h3>
-                        <p>Develop sophisticated communication skills with AI. Learn to provide context, constraints, and examples that guide AI toward optimal solutions.</p>
-                    </div>
-                    
-                    <div class="quick-start-item">
-                        <div class="step-number">3</div>
-                        <h3>Establish Review Patterns</h3>
-                        <p>Create systematic approaches for evaluating AI-generated code. Develop quality gates and validation strategies for AI assistance.</p>
-                    </div>
-                    
-                    <div class="quick-start-item">
-                        <div class="step-number">4</div>
-                        <h3>Scale Your Impact</h3>
-                        <p>Leverage AI to tackle larger, more complex problems. Focus your expertise on architecture, strategy, and high-level problem solving.</p>
+                <div class="workflow">
+                    <h3 class="workflow-title">Project Initialization</h3>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-title">Define Project Context</div>
+                            <div class="step-content">
+                                Create a comprehensive project brief including tech stack, requirements, constraints, and coding standards.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Setup AI Configuration</div>
+                            <div class="step-content">
+                                Configure your IDE settings, create .cursorrules or equivalent configuration files for consistent AI behavior.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Establish File Structure</div>
+                            <div class="step-content">
+                                Generate initial project structure with AI assistance, ensuring it follows your architectural patterns.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Create Base Templates</div>
+                            <div class="step-content">
+                                Generate boilerplate code, configuration files, and development setup scripts.
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="mindset-shift.html">Mindset Shift Guide</a>
-                    <a href="best-practices.html">Best Practices</a>
-                    <a href="case-studies.html">Case Studies</a>
-                    <a href="https://github.com/vosbek/ai-agentic-ide-guide">GitHub</a>
+                <div class="workflow">
+                    <h3 class="workflow-title">Feature Development</h3>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-title">Specification Definition</div>
+                            <div class="step-content">
+                                Write detailed requirements including acceptance criteria, edge cases, and technical constraints.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">AI-Assisted Implementation</div>
+                            <div class="step-content">
+                                Use AI to generate initial implementation, focusing on business logic and core functionality.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Iterative Refinement</div>
+                            <div class="step-content">
+                                Review, test, and refine the generated code with AI assistance for optimization and edge cases.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Test Generation</div>
+                            <div class="step-content">
+                                Generate comprehensive test suites including unit, integration, and edge case tests.
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p>&copy; 2025 AI Agentic IDE Guide. Empowering developers to thrive in the AI era.</p>
-            </div>
+
+                <div class="workflow">
+                    <h3 class="workflow-title">Code Review & Refactoring</h3>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-title">Automated Analysis</div>
+                            <div class="step-content">
+                                Use AI to analyze code for performance issues, security vulnerabilities, and maintainability concerns.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Pattern Recognition</div>
+                            <div class="step-content">
+                                Identify opportunities for design pattern application and code consolidation.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Refactoring Implementation</div>
+                            <div class="step-content">
+                                Execute refactoring with AI assistance while maintaining functionality and test coverage.
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-title">Documentation Update</div>
+                            <div class="step-content">
+                                Generate or update documentation, comments, and API specifications to reflect changes.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="patterns" class="section">
+                <h2 class="section-title">Effective Patterns</h2>
+                
+                <div class="grid grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-comments card-icon"></i>
+                            <h3 class="card-title">Context-Rich Prompts</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Provide comprehensive context for better AI responses:</p>
+                            <ul>
+                                <li>Current codebase patterns and conventions</li>
+                                <li>Technology stack and version constraints</li>
+                                <li>Performance and security requirements</li>
+                                <li>Team coding standards and preferences</li>
+                                <li>Existing architecture and design patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-cogs card-icon"></i>
+                            <h3 class="card-title">Incremental Development</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Build features incrementally with AI assistance:</p>
+                            <ul>
+                                <li>Start with minimal working implementation</li>
+                                <li>Add features one at a time</li>
+                                <li>Test and validate at each step</li>
+                                <li>Refactor and optimize continuously</li>
+                                <li>Document decisions and trade-offs</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-shield-alt card-icon"></i>
+                            <h3 class="card-title">Quality Assurance</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Maintain code quality with systematic checks:</p>
+                            <ul>
+                                <li>Define acceptance criteria upfront</li>
+                                <li>Generate comprehensive test suites</li>
+                                <li>Implement code review checklists</li>
+                                <li>Validate security and performance</li>
+                                <li>Maintain documentation standards</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-sync-alt card-icon"></i>
+                            <h3 class="card-title">Iterative Improvement</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Continuously improve code with AI feedback:</p>
+                            <ul>
+                                <li>Regular code analysis and suggestions</li>
+                                <li>Performance profiling and optimization</li>
+                                <li>Security vulnerability scanning</li>
+                                <li>Technical debt identification</li>
+                                <li>Refactoring opportunities assessment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="examples" class="section">
+                <h2 class="section-title">Practical Examples</h2>
+
+                <div class="card mb-24">
+                    <div class="card-header">
+                        <i class="fas fa-code card-icon"></i>
+                        <h3 class="card-title">API Development Example</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Example prompt for generating a REST API endpoint:</p>
+                        <div class="code-block">
+                            <pre>Create a REST API endpoint for user authentication that:
+
+- Uses Express.js and TypeScript
+- Implements JWT token-based authentication
+- Includes email/password validation
+- Returns proper HTTP status codes
+- Includes error handling and logging
+- Follows our existing API patterns in /src/routes/
+- Uses our UserService class for database operations
+- Includes rate limiting and security headers
+- Generates OpenAPI documentation
+- Includes comprehensive unit tests</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-24">
+                    <div class="card-header">
+                        <i class="fas fa-database card-icon"></i>
+                        <h3 class="card-title">Database Migration Example</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Example prompt for database schema changes:</p>
+                        <div class="code-block">
+                            <pre>Create a database migration for adding user roles that:
+
+- Uses Prisma with PostgreSQL
+- Adds a 'roles' table with id, name, permissions columns
+- Creates a many-to-many relationship with users
+- Includes proper indexes for performance
+- Provides rollback migration
+- Seeds default roles (admin, user, moderator)
+- Updates existing TypeScript types
+- Includes migration tests
+- Follows our existing schema patterns</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-24">
+                    <div class="card-header">
+                        <i class="fas fa-mobile-alt card-icon"></i>
+                        <h3 class="card-title">Component Development Example</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Example prompt for React component creation:</p>
+                        <div class="code-block">
+                            <pre>Create a reusable DataTable component that:
+
+- Uses React with TypeScript
+- Implements sorting, filtering, and pagination
+- Supports custom column definitions
+- Uses Tailwind CSS for styling
+- Includes loading and error states
+- Follows our component patterns in /src/components/
+- Uses our custom hooks for data fetching
+- Includes accessibility features (ARIA labels)
+- Supports responsive design
+- Includes Storybook stories and unit tests</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-book card-icon"></i>
+                        <h3 class="card-title">Configuration Files</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Essential configuration files for AI IDE optimization:</p>
+                        <ul>
+                            <li><strong>.cursorrules</strong> - Cursor IDE behavior and coding standards</li>
+                            <li><strong>.windsurfrules</strong> - Windsurf IDE configuration</li>
+                            <li><strong>.vscode/settings.json</strong> - VS Code AI assistant settings</li>
+                            <li><strong>ai-instructions.md</strong> - Project-specific AI guidelines</li>
+                            <li><strong>coding-standards.md</strong> - Team coding conventions</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </div>
-    </footer>
+    </main>
 
     <script>
-        // Smooth scroll for navigation links
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -496,28 +642,30 @@
             });
         });
 
-        // Add fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Update active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        function updateActiveNav() {
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                const id = section.getAttribute('id');
+                
+                if (scrollPos >= top && scrollPos < bottom) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
                 }
             });
-        }, observerOptions);
+        }
 
-        // Observe all cards for animation
-        document.querySelectorAll('.feature-card, .quick-start-item').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
+        window.addEventListener('scroll', updateActiveNav);
     </script>
 </body>
 </html>
