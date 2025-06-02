@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - AI Agentic IDE Guide</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-primary: #30363d;
+            --border-secondary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #7d8590;
+            --text-accent: #58a6ff;
+            --text-success: #3fb950;
+            --text-warning: #d29922;
+            --text-danger: #f85149;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 48px 0;
+        }
+
+        .page-header {
+            margin-bottom: 48px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .page-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 800px;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--border-secondary);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--text-accent);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card-content ul {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .card-content li {
+            margin: 8px 0;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .video-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+
+        .video-card:hover {
+            border-color: var(--text-accent);
+        }
+
+        .video-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        .video-card video {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .video-description h4 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .video-description p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .video-description strong {
+            color: var(--text-primary);
+        }
+
+        /* Tool Grid */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .tool-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .tool-card:hover {
+            border-color: var(--text-accent);
+            transform: translateY(-2px);
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .tool-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .tool-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tool-features li {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin: 4px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .tool-features li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--text-accent);
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(248, 81, 73, 0.1);
+            border: 1px solid var(--text-danger);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .warning-box .warning-title {
+            color: var(--text-danger);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box .warning-content {
+            color: var(--text-secondary);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        /* Learning Path */
+        .learning-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background: var(--text-accent);
+            color: var(--bg-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+        }
+
+        .step-content a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        .step-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .text-success { color: var(--text-success); }
+        .text-warning { color: var(--text-warning); }
+        .text-danger { color: var(--text-danger); }
+        .text-muted { color: var(--text-secondary); }
+        .mb-24 { margin-bottom: 24px; }
+        .mt-24 { margin-top: 24px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        AI Agentic IDE Guide
+                    </a>
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Overview</a></li>
+                        <li><a href="index.html#workflows">Workflows</a></li>
+                        <li><a href="index.html#tools">Tools</a></li>
+                        <li><a href="index.html#patterns">Patterns</a></li>
+                        <li><a href="resources.html" class="active">Resources</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="page-header">
+                <h1 class="page-title">IDE Resources & Documentation</h1>
+                <p class="page-description">
+                    Comprehensive resources, documentation, and learning materials for AI-powered IDEs. 
+                    Includes video tutorials, official documentation, and community resources.
+                </p>
+            </section>
+
+            <section id="cursor-resources" class="section">
+                <h2 class="section-title">Cursor IDE Resources</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 32px;">
+                    Essential Cursor IDE features and capabilities demonstrated through practical examples. 
+                    These videos show how to maximize your productivity with Cursor's advanced AI-powered development tools.
+                </p>
+                
+                <div class="video-grid">
+                    <div class="video-card">
+                        <h3>📚 Documentation Integration</h3>
+                        <video controls preload="metadata">
+                            <source src="cursordocs.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-description">
+                            <h4>Cursor Documentation Indexing</h4>
+                            <p>Learn how Cursor can automatically index and understand any documentation to provide contextually relevant suggestions. This feature allows Cursor to reference your project's docs, API specifications, and external libraries for more accurate code generation.</p>
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Automatic documentation scanning and indexing</li>
+                                <li>Context-aware suggestions based on your docs</li>
+                                <li>Integration with external API documentation</li>
+                                <li>Smart reference linking in code comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <h3>🎛️ Custom Development Modes</h3>
+                        <video controls preload="metadata">
+                            <source src="custommodes.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-description">
+                            <h4>Cursor Custom Modes</h4>
+                            <p>Discover how to create and use custom modes in Cursor to tailor the AI's behavior for specific development contexts. Custom modes allow you to define specialized AI behaviors for different types of work.</p>
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Creating project-specific AI behavior modes</li>
+                                <li>Context switching for different development phases</li>
+                                <li>Custom prompt templates and workflows</li>
+                                <li>Team-wide mode sharing and standardization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <h3>⚙️ Automated Rule Generation</h3>
+                        <video controls preload="metadata">
+                            <source src="generaterules.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-description">
+                            <h4>Cursor Rule Generation</h4>
+                            <p>See how Cursor can automatically analyze your codebase patterns and generate intelligent .cursorrules files. This feature helps maintain consistency across your project by learning from your existing code style and conventions.</p>
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Automatic pattern recognition from existing code</li>
+                                <li>Generation of project-specific rule files</li>
+                                <li>Code style and convention enforcement</li>
+                                <li>Continuous rule refinement based on feedback</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <h3>📊 Mermaid Diagram Generation</h3>
+                        <video controls preload="metadata">
+                            <source src="mermaid.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-description">
+                            <h4>Cursor Mermaid Integration</h4>
+                            <p>Learn how Cursor can automatically generate Mermaid diagrams from your code structure, helping you visualize system architecture, data flows, and component relationships without manual diagram creation.</p>
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Automatic code-to-diagram generation</li>
+                                <li>Support for flowcharts, sequence diagrams, and entity relationships</li>
+                                <li>Real-time diagram updates as code changes</li>
+                                <li>Integration with documentation workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-rocket card-icon"></i>
+                        <h3 class="card-title">Quick Setup Guide</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="code-block">
+                            <pre><strong>1. Enable Documentation Indexing</strong>
+• Go to Cursor Settings → Features → Documentation
+• Add your project's documentation directories
+• Include external API documentation URLs
+• Wait for indexing to complete (shows in status bar)
+
+<strong>2. Create Custom Modes</strong>
+• Open Command Palette (Ctrl/Cmd + Shift + P)
+• Type "Create Custom Mode"
+• Define mode-specific prompts and behaviors
+• Save and assign keyboard shortcuts
+
+<strong>3. Generate Rules Automatically</strong>
+• Right-click in project root
+• Select "Generate .cursorrules from project"
+• Review and customize generated rules
+• Commit rules file to version control
+
+<strong>4. Enable Mermaid Generation</strong>
+• Install Mermaid extension if not included
+• Use Command Palette → "Generate Mermaid from Code"
+• Select diagram type (flowchart, sequence, etc.)
+• Insert generated diagrams into documentation</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Background Agents (Preview) - NOT RECOMMENDED
+                    </div>
+                    <div class="warning-content">
+                        <p><strong>⚠️ DO NOT USE IN PRIVACY MODE OR PRODUCTION</strong></p>
+                        <p>Background Agents is an experimental feature that's currently in preview. While it shows promise for autonomous development tasks, it's not yet ready for professional use and has significant limitations.</p>
+                        <ul style="margin-top: 12px;">
+                            <li>❌ Not available in privacy mode</li>
+                            <li>❌ Experimental stability and reliability</li>
+                            <li>❌ Potential security and privacy concerns</li>
+                            <li>❌ May interfere with normal development workflow</li>
+                            <li>❌ Limited control over agent actions</li>
+                        </ul>
+                        <p style="margin-top: 12px;"><strong>Recommendation:</strong> Wait for the stable release before considering this feature for any serious development work.</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--text-primary); margin: 32px 0 16px 0;">📖 Official Cursor Documentation</h3>
+                <div class="tool-grid">
+                    <a href="https://docs.cursor.com/welcome" target="_blank" class="tool-card">
+                        <div class="tool-name">🏠 Main Documentation</div>
+                        <div class="tool-description">The complete Cursor documentation covering all features, setup, and configuration options.</div>
+                    </a>
+                    <a href="https://docs.cursor.com/guides" target="_blank" class="tool-card">
+                        <div class="tool-name">📚 Official Guides</div>
+                        <div class="tool-description">Step-by-step tutorials and guides for mastering Cursor's advanced features and workflows.</div>
+                    </a>
+                    <a href="https://docs.cursor.com/kbd" target="_blank" class="tool-card">
+                        <div class="tool-name">⌨️ Keyboard Shortcuts</div>
+                        <div class="tool-description">Complete reference of keyboard shortcuts to speed up your development workflow in Cursor.</div>
+                    </a>
+                    <a href="https://www.cursor.com/ja/changelog" target="_blank" class="tool-card">
+                        <div class="tool-name">🔄 Changelog</div>
+                        <div class="tool-description">Stay updated with the latest Cursor features, improvements, and bug fixes.</div>
+                    </a>
+                    <a href="https://docs.cursor.com/guides/advanced/large-codebases" target="_blank" class="tool-card">
+                        <div class="tool-name">🏢 Large Codebases</div>
+                        <div class="tool-description">Essential strategies for using Cursor effectively in enterprise-scale projects.</div>
+                    </a>
+                    <a href="https://docs.cursor.com/guides/working-with-context#mcp" target="_blank" class="tool-card">
+                        <div class="tool-name">🔌 Model Context Protocol</div>
+                        <div class="tool-description">Learn how to integrate external tools and services with Cursor using MCP.</div>
+                    </a>
+                    <a href="https://docs.cursor.com/more/ai-commit-message" target="_blank" class="tool-card">
+                        <div class="tool-name">💬 AI Commit Messages</div>
+                        <div class="tool-description">Automatically generate meaningful, conventional commit messages based on your code changes.</div>
+                    </a>
+                    <a href="https://cursor.directory/learn" target="_blank" class="tool-card">
+                        <div class="tool-name">📺 Community Videos</div>
+                        <div class="tool-description">A comprehensive collection of community-created videos covering various Cursor features and workflows.</div>
+                    </a>
+                </div>
+            </section>
+
+            <section id="other-ides" class="section">
+                <h2 class="section-title">Other AI IDE Resources</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 32px;">
+                    Documentation and resources for other popular AI-powered development environments.
+                </p>
+
+                <div class="tool-grid">
+                    <a href="https://windsurf.codeium.com" target="_blank" class="tool-card">
+                        <div class="tool-name">Windsurf</div>
+                        <div class="tool-description">Codeium's agentic IDE with autonomous coding capabilities</div>
+                        <ul class="tool-features">
+                            <li>Autonomous code generation and editing</li>
+                            <li>Multi-file context understanding</li>
+                            <li>Advanced debugging assistance</li>
+                            <li>Integrated terminal and git operations</li>
+                        </ul>
+                    </a>
+                    
+                    <a href="https://github.com/features/copilot" target="_blank" class="tool-card">
+                        <div class="tool-name">GitHub Copilot</div>
+                        <div class="tool-description">AI pair programmer for VS Code and other editors</div>
+                        <ul class="tool-features">
+                            <li>Intelligent code completions</li>
+                            <li>Natural language to code conversion</li>
+                            <li>Context-aware suggestions</li>
+                            <li>Multi-language support</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://supermaven.com" target="_blank" class="tool-card">
+                        <div class="tool-name">Supermaven</div>
+                        <div class="tool-description">Fast AI code completion with large context windows</div>
+                        <ul class="tool-features">
+                            <li>1 million token context window</li>
+                            <li>Sub-100ms completion speed</li>
+                            <li>High-quality code suggestions</li>
+                            <li>Support for major IDEs</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://continue.dev" target="_blank" class="tool-card">
+                        <div class="tool-name">Continue</div>
+                        <div class="tool-description">Open-source AI code assistant for VS Code</div>
+                        <ul class="tool-features">
+                            <li>Open-source and customizable</li>
+                            <li>Multiple AI model support</li>
+                            <li>Local and cloud deployment options</li>
+                            <li>Extensible plugin architecture</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://codeium.com" target="_blank" class="tool-card">
+                        <div class="tool-name">Codeium</div>
+                        <div class="tool-description">Free AI-powered code acceleration</div>
+                        <ul class="tool-features">
+                            <li>Free tier with generous limits</li>
+                            <li>40+ language support</li>
+                            <li>IDE integrations available</li>
+                            <li>Chat and autocomplete features</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://docs.github.com/en/copilot" target="_blank" class="tool-card">
+                        <div class="tool-name">GitHub Copilot Docs</div>
+                        <div class="tool-description">Official documentation for GitHub Copilot setup and usage</div>
+                        <ul class="tool-features">
+                            <li>Installation and setup guides</li>
+                            <li>Best practices for prompting</li>
+                            <li>Integration tutorials</li>
+                            <li>Troubleshooting resources</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://continue.dev/docs" target="_blank" class="tool-card">
+                        <div class="tool-name">Continue Documentation</div>
+                        <div class="tool-description">Comprehensive guides for Continue AI assistant</div>
+                        <ul class="tool-features">
+                            <li>Configuration and customization</li>
+                            <li>Model integration guides</li>
+                            <li>Plugin development</li>
+                            <li>Self-hosting instructions</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://codeium.com/blog" target="_blank" class="tool-card">
+                        <div class="tool-name">Codeium Blog</div>
+                        <div class="tool-description">Updates, tutorials, and best practices from the Codeium team</div>
+                        <ul class="tool-features">
+                            <li>Feature announcements</li>
+                            <li>Usage tutorials and tips</li>
+                            <li>Industry insights</li>
+                            <li>Performance benchmarks</li>
+                        </ul>
+                    </a>
+                </div>
+            </section>
+
+            <section id="learning-path" class="section">
+                <h2 class="section-title">Recommended Learning Path</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 32px;">
+                    Follow this suggested learning path to master AI IDEs efficiently:
+                </p>
+
+                <div class="learning-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Start with Cursor Videos</h4>
+                        <p>Watch the embedded videos above to understand core Cursor capabilities: documentation indexing, custom modes, rule generation, and Mermaid diagrams.</p>
+                    </div>
+                </div>
+
+                <div class="learning-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Learn the Basics</h4>
+                        <p>Read the <a href="https://docs.cursor.com/welcome" target="_blank">main documentation</a> and memorize key <a href="https://docs.cursor.com/kbd" target="_blank">keyboard shortcuts</a> for efficient navigation.</p>
+                    </div>
+                </div>
+
+                <div class="learning-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Explore Advanced Features</h4>
+                        <p>Set up <a href="https://docs.cursor.com/more/ai-commit-message" target="_blank">AI commit messages</a> and explore <a href="https://docs.cursor.com/guides/working-with-context#mcp" target="_blank">MCP integrations</a> for your development stack.</p>
+                    </div>
+                </div>
+
+                <div class="learning-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Scale to Large Projects</h4>
+                        <p>If working with large codebases, implement strategies from the <a href="https://docs.cursor.com/guides/advanced/large-codebases" target="_blank">large codebase guide</a>.</p>
+                    </div>
+                </div>
+
+                <div class="learning-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Learn from the Community</h4>
+                        <p>Watch <a href="https://cursor.directory/learn" target="_blank">community videos</a> to see real-world usage patterns and discover advanced techniques.</p>
+                    </div>
+                </div>
+
+                <div class="learning-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Stay Updated</h4>
+                        <p>Regularly check the <a href="https://www.cursor.com/ja/changelog" target="_blank">changelog</a> for new features and improvements.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function updateActiveNav() {
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                const id = section.getAttribute('id');
+                
+                if (scrollPos >= top && scrollPos < bottom) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}` || 
+                            (id === 'cursor-resources' && link.getAttribute('href') === 'resources.html')) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+    </script>
+</body>
+</html>
